@@ -41,6 +41,10 @@ public class EventProcessor {
         Pair<Light, Room> involved = smartHome.getLightByID(event.getObjectId());
         Light involvedLight = involved.getKey();
         Room involvedRoom = involved.getValue();
+        if (involvedLight == null || involvedRoom == null) {
+            return;
+        }
+
         if (event.getType() == LIGHT_ON) {
             involvedLight.setOn(true);
             System.out.println("Light " + involvedLight.getId() + " in room " + involvedRoom.getName() + " was turned on.");
