@@ -1,28 +1,38 @@
 package ru.sbt.mipt.oop.events;
 
-import javafx.util.Pair;
+import ru.sbt.mipt.oop.homecomponents.Response;
+import ru.sbt.mipt.oop.homecomponents.Status;
 import ru.sbt.mipt.oop.service.SensorService;
-import ru.sbt.mipt.oop.homecomponents.Door;
-import ru.sbt.mipt.oop.homecomponents.Room;
 import ru.sbt.mipt.oop.homecomponents.SmartHome;
 
 import static ru.sbt.mipt.oop.events.SensorEventType.*;
 
 
-public class DoorEventProcessor implements EventProcessor{
-    public  void process(SmartHome smartHome, SensorEvent event, SensorService eventService) {
-        if (!isDoorEvent(event)){
+public class DoorEventProcessor implements EventProcessor {
+    private final String OPENED = " was opened.";
+    private final String CLOSED = " was closed.";
+
+    public void process(SmartHome smartHome, SensorEvent event, SensorService eventService) {
+        if (!isDoorEvent(event)) {
             return;
         }
-
+        Response response = null;
+        String statusMessage = "";
         if (event.getType() == DOOR_OPEN) {
-            smartHome.changeState(event.getObjectId(), true, null, " was opened.");
+            response = smartHome.changeState(event.getObjectId(), true);
+            if (response.getStatus() == Status.OK_CHANGED) {
+                statusMessage = OPENED;
+            }
+
         } else {
-            smartHome.changeState(event.getObjectId(), false, null, " was closed.");
+            response = smartHome.changeState(event.getObjectId(), false);
+            if (response.getStatus() == Status.OK_CHANGED) {
+                statusMessage = CLOSED;
+            }
         }
+        System.out.println(response.getMessage() + statusMessage);
 
     }
-
 
 
     private boolean isDoorEvent(SensorEvent event) {

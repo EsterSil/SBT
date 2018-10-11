@@ -24,10 +24,19 @@ public class SmartHome implements HomeComposite {
     }
 
     @Override
-    public void changeState(String componentID, boolean state, String parentComponentID, String statusMessage) {
-        for (HomeComponent c: components) {
-            c.changeState( componentID, state, "home", statusMessage);
+    public Response changeState(String componentID, boolean state) {
+        for (HomeComponent c : components) {
+            Response componentResponse = c.changeState(componentID, state);
+            if (componentResponse.getStatus() == Status.OK_CHANGED) {
+
+                return componentResponse;
+            }
         }
+        return new Response(Status.NO_MATCHES, "UNKNOWN OBJECT ID DETECTED! UPDATE HOME DATABASES");
+    }
+
+    public void turnLightsOff() {
+
     }
 
     @Override

@@ -16,14 +16,6 @@ public class Room implements HomeComposite {
         this.name = name;
     }
 
-    /*public Collection<Light> getLights() {
-        return lights;
-    }
-
-    public Collection<Door> getDoors() {
-        return doors;
-    }
-*/
     public String getName() {
         return name;
     }
@@ -44,9 +36,14 @@ public class Room implements HomeComposite {
     }
 
     @Override
-    public void changeState(String componentID, boolean state, String parentComponentID, String statusMessage) {
+    public Response changeState(String componentID, boolean state) {
         for (HomeComponent c: components) {
-            c.changeState(componentID,state, this.name, statusMessage);
+            Response componentResponse = c.changeState(componentID,state);
+            if (componentResponse.getStatus() == Status.OK_CHANGED) {
+                componentResponse.updateMessage(" in the room "+this.name);
+                return componentResponse;
+            }
         }
+        return new Response(Status.NO_MATCHES);
     }
 }

@@ -18,10 +18,12 @@ public class Door implements HomeLeaf {
     }
 
     @Override
-    public void changeState(String componentID, boolean state, String roomId, String statusMessage) {
+    public Response changeState(String componentID, boolean state) {
         if (componentID.equals(this.id)) {
             this.setOpen(state);
-            System.out.println("Door " + this.id + "in room " + roomId + " " + statusMessage);
+           // System.out.println("Door " + this.id + "in room " + roomId + " " + statusMessage);
+            return new Response(Status.OK_CHANGED, "Door " + this.id );
         }
+        return new Response(Status.NO_MATCHES);
     }
 }

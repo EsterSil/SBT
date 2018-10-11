@@ -9,10 +9,6 @@ public class Light implements HomeLeaf {
         this.isOn = isOn;
     }
 
-    public boolean isOn() {
-        return isOn;
-    }
-
     public String getId() {
         return id;
     }
@@ -22,10 +18,11 @@ public class Light implements HomeLeaf {
     }
 
     @Override
-    public void changeState(String componentID, boolean state, String roomID, String statusMessage) {
+    public Response changeState(String componentID, boolean state) {
         if (componentID.equals(this.id)) {
             this.setOn(state);
-            System.out.println("Light " + this.id + " in room " + roomID + " " + statusMessage);
+            return new Response(Status.OK_CHANGED, "Light " + this.id );
         }
+        return  new Response(Status.NO_MATCHES);
     }
 }
