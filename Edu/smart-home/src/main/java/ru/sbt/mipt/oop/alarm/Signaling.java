@@ -22,11 +22,29 @@ public class Signaling {
     }
 
     public void activete(String code){
-        if (state instanceof Active) {
-            changeState(new Alarm(this));
+        state.activate(code);
+        /*
+        if (state instanceof Activated) {
+            changeState(new Alarm(this)) ;
         }
         secretCode = code;
-        changeState(new Active(this));
+        changeState(new Activated(this));
+    */}
 
+    public void deactivate (String code) {
+        state.deactivate(code);
+        /*
+        if(state instanceof Disabled) {
+            return;
+        }
+        if (code.equals(this.secretCode)) {
+            changeState( new Disabled(this));
+        } else {
+            changeState(new Alarm(this));
+        }*/
+    }
+
+    public boolean checkCodeConcept(String code) {
+        return this.secretCode.equals(code);
     }
 }
