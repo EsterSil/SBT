@@ -4,6 +4,10 @@ public class Signaling {
 
     private AlarmState state= new Disabled(this);
 
+    void setSecretCode(String secretCode) {
+        this.secretCode = secretCode;
+    }
+
     private String secretCode = "0000";
 
     public Signaling() {
@@ -13,7 +17,7 @@ public class Signaling {
         this.secretCode = secretCode;
     }
 
-    public void changeState(AlarmState state) {
+    void changeState(AlarmState state) {
         this.state = state;
     }
 
@@ -21,27 +25,12 @@ public class Signaling {
         return state;
     }
 
-    public void activete(String code){
+    public void activate(String code){
         state.activate(code);
-        /*
-        if (state instanceof Activated) {
-            changeState(new Alarm(this)) ;
-        }
-        secretCode = code;
-        changeState(new Activated(this));
-    */}
+    }
 
     public void deactivate (String code) {
         state.deactivate(code);
-        /*
-        if(state instanceof Disabled) {
-            return;
-        }
-        if (code.equals(this.secretCode)) {
-            changeState( new Disabled(this));
-        } else {
-            changeState(new Alarm(this));
-        }*/
     }
 
     public boolean checkCodeConcept(String code) {

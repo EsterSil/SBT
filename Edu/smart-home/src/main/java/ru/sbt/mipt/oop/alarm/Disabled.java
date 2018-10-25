@@ -5,6 +5,7 @@ public class Disabled implements AlarmState {
 
     public Disabled(Signaling signaling) {
         this.signaling = signaling;
+        this.signaling.setSecretCode("0000");
         System.out.println( "Signaling disabled");
     }
 
@@ -15,11 +16,12 @@ public class Disabled implements AlarmState {
 
     @Override
     public void activate(String code) {
-
+        signaling.changeState(new Activated(signaling,code));
+        System.out.println("Signaling was activated. The Home is under control!");
     }
 
     @Override
     public void deactivate(String code) {
-
+        System.out.println( " Signaling is already disabled");
     }
 }

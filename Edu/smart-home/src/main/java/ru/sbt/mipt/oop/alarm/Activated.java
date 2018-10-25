@@ -3,8 +3,9 @@ package ru.sbt.mipt.oop.alarm;
 public class Activated implements AlarmState {
     Signaling signaling;
 
-    public Activated(Signaling signaling) {
+    public Activated(Signaling signaling, String code) {
         this.signaling = signaling;
+        this.signaling.setSecretCode(code);
         System.out.println( "Signaling activated");
     }
 

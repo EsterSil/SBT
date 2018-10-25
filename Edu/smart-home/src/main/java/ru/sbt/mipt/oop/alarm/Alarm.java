@@ -16,11 +16,15 @@ public class Alarm implements AlarmState {
 
     @Override
     public void activate(String code) {
-
+        System.out.println("ALARM! Someone try to change code!");
     }
 
     @Override
     public void deactivate(String code) {
-
+        if (signaling.checkCodeConcept(code)){
+            signaling.changeState(new Disabled(signaling));
+            System.out.println("Signaling disabled");
+        }
+        System.out.println("ALARM! Wrong code!");
     }
 }

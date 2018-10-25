@@ -4,16 +4,23 @@ package ru.sbt.mipt.oop.homecomponents;
 
 
 
+import ru.sbt.mipt.oop.alarm.Signaling;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
 public class SmartHome implements HomeComposite {
-    Collection<HomeComponent> components;
-    Collection<Room> rooms;
-
+    private Collection<HomeComponent> components;
+    private Collection<Room> rooms;
+    private Signaling signaling;
 
     public SmartHome() {
         components = new ArrayList<>();
+        signaling = new Signaling();
+    }
+
+    public Signaling getSignaling() {
+        return signaling;
     }
 
     //public SmartHome(Collection<HomeComponent> components) {
@@ -21,6 +28,7 @@ public class SmartHome implements HomeComposite {
     //}
     public SmartHome(Collection<Room> rooms) {
         this.rooms = rooms;
+        signaling = new Signaling();
     }
 
 
