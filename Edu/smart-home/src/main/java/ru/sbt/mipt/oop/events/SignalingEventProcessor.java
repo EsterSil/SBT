@@ -1,6 +1,7 @@
 package ru.sbt.mipt.oop.events;
 
 import ru.sbt.mipt.oop.homecomponents.Action;
+import ru.sbt.mipt.oop.homecomponents.HomeLeaf;
 import ru.sbt.mipt.oop.homecomponents.SmartHome;
 
 public class SignalingEventProcessor implements HomeEventProcessor {
@@ -12,7 +13,15 @@ public class SignalingEventProcessor implements HomeEventProcessor {
         smartHome.executeAction(new Action() {
             @Override
             public void execute(Object object) {
-
+                if(event.getType()== SensorEventType.ALARM_ACTIVATE){
+                    smartHome.activateSignaling(event.getObjectId());
+                } else {
+                    smartHome.deactivateSignaling(event.getObjectId());
+                }
+                if (object instanceof HomeLeaf) {
+                    HomeLeaf leaf = (HomeLeaf) object;
+                    leaf.lock(smartHome.isHomeLocked());
+                }
             }
         });
     }
