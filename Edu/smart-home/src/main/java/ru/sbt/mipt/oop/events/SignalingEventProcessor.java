@@ -10,14 +10,14 @@ public class SignalingEventProcessor implements HomeEventProcessor {
         if (!isSignalingEvent(event)) {
             return;
         }
+        if(event.getType()== SensorEventType.ALARM_ACTIVATE){
+            smartHome.activateSignaling(event.getObjectId());
+        } else {
+            smartHome.deactivateSignaling(event.getObjectId());
+        }
         smartHome.executeAction(new Action() {
             @Override
             public void execute(Object object) {
-                if(event.getType()== SensorEventType.ALARM_ACTIVATE){
-                    smartHome.activateSignaling(event.getObjectId());
-                } else {
-                    smartHome.deactivateSignaling(event.getObjectId());
-                }
                 if (object instanceof HomeLeaf) {
                     HomeLeaf leaf = (HomeLeaf) object;
                     leaf.lock(smartHome.isHomeLocked());
