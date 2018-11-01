@@ -21,7 +21,7 @@ public class Application {
     }
 
     public static void main(String... args) throws IOException {
-        Configurator.configure(homeEventObserver);
+        Configurator.configure(homeEventObserver, smartHome);
         homeEventObserver.runEventLoop(smartHome);
     }
 

@@ -1,21 +1,28 @@
-package ru.sbt.mipt.oop.events;
+package ru.sbt.mipt.oop.processor;
 
+import ru.sbt.mipt.oop.events.SensorEvent;
 import ru.sbt.mipt.oop.homecomponents.Action;
 import ru.sbt.mipt.oop.homecomponents.Door;
 import ru.sbt.mipt.oop.homecomponents.SmartHome;
 
-import static ru.sbt.mipt.oop.events.SensorEventType.*;
+import static ru.sbt.mipt.oop.events.SensorEventType.DOOR_CLOSED;
+import static ru.sbt.mipt.oop.events.SensorEventType.DOOR_OPEN;
 
 
+public class DoorEventProcessor implements HomeEventProcessor {
 
-public class    DoorEventProcessor implements HomeEventProcessor {
+    private final SmartHome smartHome;
+
+    public DoorEventProcessor(SmartHome smartHome) {
+        this.smartHome = smartHome;
+    }
 
     @Override
-    public void onEvent(SmartHome smartHome, SensorEvent event) {
+    public void onEvent(SensorEvent event) {
         if (!isDoorEvent(event)) {
             return;
         }
-        smartHome.executeAction( object -> {
+        smartHome.executeAction(object -> {
             if (object instanceof Door) {
                 Door door = (Door) object;
                 boolean state = event.getType() == DOOR_OPEN;

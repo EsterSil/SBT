@@ -1,6 +1,7 @@
 package ru.sbt.mipt.oop;
 
 import ru.sbt.mipt.oop.events.*;
+import ru.sbt.mipt.oop.processor.HomeEventProcessor;
 import ru.sbt.mipt.oop.homecomponents.SmartHome;
 
 import java.util.ArrayList;
@@ -18,23 +19,28 @@ public class HomeEventObserver {
         SensorEvent event = eventSource.getNextSensorEvent();
         while (event != null) {
             System.out.println("Got event: " + event);
-            publish(smartHome, event, eventProcessors);
+            publish( event, eventProcessors);
             event = eventSource.getNextSensorEvent();
         }
     }
 
-    private static void publish(SmartHome smartHome, SensorEvent event, Collection<HomeEventProcessor> eventProcessors) {
+    private static void publish( SensorEvent event, Collection<HomeEventProcessor> eventProcessors) {
         for (HomeEventProcessor p : eventProcessors) {
-            p.onEvent(smartHome, event);
+            p.onEvent(event);
         }
     }
 
     public void addEventProcessor(HomeEventProcessor processor) {
-        eventProcessors = new ArrayList<>();
+        if (eventProcessors == null) {
+            eventProcessors = new ArrayList<>();
+        }
         eventProcessors.add(processor);
     }
 
     public void addAllEventProcessors( Collection<HomeEventProcessor> processors) {
+        if (eventProcessors == null) {
+            eventProcessors = new ArrayList<>();
+        }
         eventProcessors.addAll(processors);
     }
 

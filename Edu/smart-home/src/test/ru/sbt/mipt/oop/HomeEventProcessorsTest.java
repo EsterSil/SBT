@@ -2,7 +2,8 @@ package ru.sbt.mipt.oop;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ru.sbt.mipt.oop.events.*;
+import ru.sbt.mipt.oop.processor.DoorEventProcessor;
+import ru.sbt.mipt.oop.processor.HomeEventProcessor;
 import ru.sbt.mipt.oop.homecomponents.SmartHome;
 import ru.sbt.mipt.oop.loarers.FileSmartHomeLoader;
 

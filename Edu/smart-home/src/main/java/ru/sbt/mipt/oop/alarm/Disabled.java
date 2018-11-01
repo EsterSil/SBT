@@ -24,4 +24,10 @@ public class Disabled implements AlarmState {
     public void deactivate(String code) {
         System.out.println( " Signaling is already disabled");
     }
+
+    @Override
+    public void setToAlarm() {
+        System.out.println( "Something goes wrong...");
+        changeState(new Alarm(signaling));
+    }
 }

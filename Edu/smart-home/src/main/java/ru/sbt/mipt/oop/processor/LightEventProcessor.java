@@ -1,11 +1,17 @@
-package ru.sbt.mipt.oop.events;
+package ru.sbt.mipt.oop.processor;
 
+import ru.sbt.mipt.oop.events.SensorEvent;
 import ru.sbt.mipt.oop.homecomponents.*;
 
 import static ru.sbt.mipt.oop.events.SensorEventType.LIGHT_OFF;
 import static ru.sbt.mipt.oop.events.SensorEventType.LIGHT_ON;
 
 public class LightEventProcessor implements HomeEventProcessor {
+    private final SmartHome smartHome;
+
+    public LightEventProcessor(SmartHome smartHome) {
+        this.smartHome = smartHome;
+    }
 
     private boolean isLightEvent(SensorEvent event) {
         if (event == null) return false;
@@ -13,7 +19,7 @@ public class LightEventProcessor implements HomeEventProcessor {
     }
 
     @Override
-    public void onEvent(SmartHome smartHome, SensorEvent event) {
+    public void onEvent( SensorEvent event) {
         if (!isLightEvent(event)) {
             return;
         }
@@ -22,7 +28,6 @@ public class LightEventProcessor implements HomeEventProcessor {
                 Light light = (Light) object;
                 boolean state = event.getType() == LIGHT_ON;
                 light.changeState(event.getObjectId(), state);
-
             }
         });
     }

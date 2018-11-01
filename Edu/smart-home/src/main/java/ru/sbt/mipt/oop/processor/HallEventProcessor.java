@@ -1,10 +1,20 @@
-package ru.sbt.mipt.oop.events;
+package ru.sbt.mipt.oop.processor;
 
-import ru.sbt.mipt.oop.homecomponents.*;
+import ru.sbt.mipt.oop.events.SensorEvent;
+import ru.sbt.mipt.oop.events.SensorEventType;
+import ru.sbt.mipt.oop.homecomponents.Light;
+import ru.sbt.mipt.oop.homecomponents.Room;
+import ru.sbt.mipt.oop.homecomponents.SmartHome;
 
 public class HallEventProcessor implements HomeEventProcessor {
+    private final SmartHome smartHome;
+
+    public HallEventProcessor(SmartHome smartHome) {
+        this.smartHome = smartHome;
+    }
+
     @Override
-    public void onEvent (SmartHome smartHome, SensorEvent event) {
+    public void onEvent(SensorEvent event) {
         if (!event.getType().equals(SensorEventType.DOOR_CLOSED)) {
             return;
         }

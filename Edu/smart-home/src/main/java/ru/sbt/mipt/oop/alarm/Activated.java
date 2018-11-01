@@ -30,4 +30,11 @@ public class Activated implements AlarmState {
             changeState(new Alarm(signaling));
         }
     }
+
+    @Override
+    public void setToAlarm() {
+        System.out.println("Unacceptable behaviour!");
+        changeState(new Alarm(signaling));
+    }
+
 }

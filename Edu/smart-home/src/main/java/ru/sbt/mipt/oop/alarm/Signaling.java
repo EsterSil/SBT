@@ -36,4 +36,8 @@ public class Signaling {
     public boolean checkCodeConcept(String code) {
         return this.secretCode.equals(code);
     }
+
+    public void setToAlarm() {
+        state.setToAlarm();
+    }
 }

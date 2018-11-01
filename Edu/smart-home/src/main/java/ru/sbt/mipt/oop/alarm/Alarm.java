@@ -27,4 +27,9 @@ public class Alarm implements AlarmState {
         }
         System.out.println("ALARM! Wrong code!");
     }
+
+    @Override
+    public void setToAlarm() {
+
+    }
 }
