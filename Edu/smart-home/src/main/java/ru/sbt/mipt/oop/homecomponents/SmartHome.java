@@ -4,6 +4,7 @@ package ru.sbt.mipt.oop.homecomponents;
 
 
 
+import ru.sbt.mipt.oop.alarm.Alarm;
 import ru.sbt.mipt.oop.alarm.Signaling;
 
 import java.util.ArrayList;
@@ -19,13 +20,6 @@ public class SmartHome implements HomeComposite {
         signaling = new Signaling();
     }
 
-    public Signaling getSignaling() {
-        return signaling;
-    }
-
-    //public SmartHome(Collection<HomeComponent> components) {
-    //    this.components = components;
-    //}
     public SmartHome(Collection<Room> rooms) {
         this.rooms = rooms;
         signaling = new Signaling();
@@ -59,5 +53,16 @@ public class SmartHome implements HomeComposite {
             components.addAll(rooms);
         }
         components.forEach(c -> c.executeAction(action));
+    }
+
+    public boolean isHomeLocked() {
+        return this.signaling.getState() instanceof Alarm;
+    }
+
+    public void activateSignaling(String code){
+        this.signaling.activate(code);
+    }
+    public void deactivateSignaling(String code){
+        this.signaling.deactivate(code);
     }
 }
