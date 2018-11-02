@@ -2,7 +2,7 @@ package ru.sbt.mipt.oop.alarm;
 
 public class Signaling {
 
-    private AlarmState state= new Disabled(this);
+    private AlarmState state = new Disabled(this);
 
     void setSecretCode(String secretCode) {
         this.secretCode = secretCode;

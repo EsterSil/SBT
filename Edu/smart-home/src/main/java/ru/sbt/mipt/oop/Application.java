@@ -11,8 +11,8 @@ public class Application {
 
     public static void main(String... args) throws IOException {
         ApplicationContext context = new AnnotationConfigApplicationContext(HomeConfiguration.class);
-        SensorEventsManager sensorEventsManager = context.getBean(SensorEventsManager.class);
-        sensorEventsManager.start();
+        EventManager eventManager = context.getBean(EventManager.class);
+        eventManager.runEventLoop();
     }
 
 }

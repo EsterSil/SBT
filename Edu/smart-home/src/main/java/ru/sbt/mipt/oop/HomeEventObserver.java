@@ -7,15 +7,20 @@ import ru.sbt.mipt.oop.homecomponents.SmartHome;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class HomeEventObserver {
+public class HomeEventObserver implements EventManager{
     private static Collection<HomeEventProcessor> eventProcessors = null;
     private EventSource eventSource;
+    private SmartHome smartHome;
+
+    public HomeEventObserver(SmartHome smartHome) {
+        this.smartHome = smartHome;
+    }
 
     public HomeEventObserver(EventSource eventSource) {
         this.eventSource = eventSource;
     }
 
-    public void runEventLoop(SmartHome smartHome) {
+    public void runEventLoop() {
         SensorEvent event = eventSource.getNextSensorEvent();
         while (event != null) {
             System.out.println("Got event: " + event);

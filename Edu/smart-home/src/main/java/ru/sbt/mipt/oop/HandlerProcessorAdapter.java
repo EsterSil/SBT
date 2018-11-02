@@ -9,7 +9,7 @@ import ru.sbt.mipt.oop.processor.HomeEventProcessor;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CCSAdapter implements EventHandler {
+public class HandlerProcessorAdapter implements EventHandler {
     private final HomeEventProcessor eventProcessor;
     private static Map<String, SensorEventType> eventTypeMap = new HashMap<>();
     static {
@@ -21,7 +21,7 @@ public class CCSAdapter implements EventHandler {
         eventTypeMap.put("DoorIsUnlocked", SensorEventType.ALARM_DEACTIVATE);
     }
 
-    public CCSAdapter(HomeEventProcessor eventProcessor) {
+    public HandlerProcessorAdapter(HomeEventProcessor eventProcessor) {
         this.eventProcessor = eventProcessor;
     }
 

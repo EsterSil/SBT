@@ -53,7 +53,7 @@ public class HomeEventObserverTest {
     public void observerTest() {
         HomeEventProcessor testProcessor = new TestProcessor();
         homeEventObserver.addEventProcessor(testProcessor);
-        homeEventObserver.runEventLoop(null);
+        homeEventObserver.runEventLoop();
         Assert.assertEquals(10, ((TestProcessor) testProcessor).getCounter());
 
     }

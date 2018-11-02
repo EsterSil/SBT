@@ -1,6 +1,5 @@
 package ru.sbt.mipt.oop;
 
-import com.coolcompany.smarthome.events.SensorEventsManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -19,20 +18,23 @@ import java.util.Collection;
 public class HomeConfiguration {
 
     private static SmartHome smartHome;
-    private static SensorEventsManager manager;
+    private static EventManager manager;
 
     public HomeConfiguration() {
         try {
             smartHome = new FileSmartHomeLoader().load();
+            //manager = new HomeEventObserver(smartHome);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    @Autowired
-    public HomeConfiguration(SmartHomeLoader smartHomeLoader) {
+    //@Autowired
+    public HomeConfiguration(SmartHomeLoader smartHomeLoader, EventManager manager ) {
         try {
-            this.smartHome = smartHomeLoader.load();
+            smartHome = smartHomeLoader.load();
+            manager = manager;
+            configureManager(smartHome);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -41,16 +43,16 @@ public class HomeConfiguration {
 
 
     @Bean
-    SensorEventsManager sensorEventsManager() {
-        manager = new SensorEventsManager();
-        configure(smartHome);
+    EventManager eventManager() {
+        manager = new EventManagerAdapter();
+        configureManager(smartHome);
         return manager;
     }
 
-    public void configure( SmartHome smartHome) {
+    public void configureManager(SmartHome smartHome) {
         Collection<HomeEventProcessor> processors = configureEventProcessors(smartHome);
         for (HomeEventProcessor p: processors) {
-            manager.registerEventHandler(new CCSAdapter(p));
+            manager.addEventProcessor(p);
         }
     }
 
