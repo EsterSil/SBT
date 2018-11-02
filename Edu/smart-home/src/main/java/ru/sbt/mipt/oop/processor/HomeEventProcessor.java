@@ -1,5 +1,5 @@
 package ru.sbt.mipt.oop.processor;
-import ru.sbt.mipt.oop.events.SensorEvent;
+import ru.sbt.mipt.oop.eventsgenerator.SensorEvent;
 
 public interface HomeEventProcessor {
 

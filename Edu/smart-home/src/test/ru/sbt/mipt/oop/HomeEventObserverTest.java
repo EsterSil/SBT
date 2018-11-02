@@ -3,10 +3,10 @@ package ru.sbt.mipt.oop;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import ru.sbt.mipt.oop.events.EventSource;
+import ru.sbt.mipt.oop.eventsgenerator.EventSource;
 import ru.sbt.mipt.oop.processor.HomeEventProcessor;
-import ru.sbt.mipt.oop.events.SensorEvent;
-import ru.sbt.mipt.oop.events.SensorEventType;
+import ru.sbt.mipt.oop.eventsgenerator.SensorEvent;
+import ru.sbt.mipt.oop.eventsgenerator.SensorEventType;
 import ru.sbt.mipt.oop.homecomponents.SmartHome;
 
 public class HomeEventObserverTest {

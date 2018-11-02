@@ -4,15 +4,21 @@ package ru.sbt.mipt.oop.homecomponents;
 
 
 
+import org.springframework.stereotype.Component;
 import ru.sbt.mipt.oop.alarm.Alarm;
 import ru.sbt.mipt.oop.alarm.Signaling;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
+@Component
 public class SmartHome implements HomeComposite {
     private Collection<HomeComponent> components;
     private Collection<Room> rooms;
+
+    public Signaling getSignaling() {
+        return signaling;
+    }
+
     private Signaling signaling;
 
     public SmartHome() {

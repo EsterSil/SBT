@@ -1,10 +1,10 @@
 package ru.sbt.mipt.oop.processor;
 
-import ru.sbt.mipt.oop.events.SensorEvent;
+import ru.sbt.mipt.oop.eventsgenerator.SensorEvent;
 import ru.sbt.mipt.oop.homecomponents.*;
 
-import static ru.sbt.mipt.oop.events.SensorEventType.LIGHT_OFF;
-import static ru.sbt.mipt.oop.events.SensorEventType.LIGHT_ON;
+import static ru.sbt.mipt.oop.eventsgenerator.SensorEventType.LIGHT_OFF;
+import static ru.sbt.mipt.oop.eventsgenerator.SensorEventType.LIGHT_ON;
 
 public class LightEventProcessor implements HomeEventProcessor {
     private final SmartHome smartHome;

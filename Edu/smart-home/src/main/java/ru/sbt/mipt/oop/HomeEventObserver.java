@@ -1,6 +1,6 @@
 package ru.sbt.mipt.oop;
 
-import ru.sbt.mipt.oop.events.*;
+import ru.sbt.mipt.oop.eventsgenerator.*;
 import ru.sbt.mipt.oop.processor.HomeEventProcessor;
 import ru.sbt.mipt.oop.homecomponents.SmartHome;
 

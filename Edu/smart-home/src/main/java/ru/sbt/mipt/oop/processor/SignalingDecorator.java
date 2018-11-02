@@ -1,7 +1,7 @@
 package ru.sbt.mipt.oop.processor;
 
 import ru.sbt.mipt.oop.alarm.Activated;
-import ru.sbt.mipt.oop.events.SensorEvent;
+import ru.sbt.mipt.oop.eventsgenerator.SensorEvent;
 import ru.sbt.mipt.oop.homecomponents.SmartHome;
 
 public class SignalingDecorator implements HomeEventProcessor {

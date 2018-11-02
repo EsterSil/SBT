@@ -1,7 +1,7 @@
 package ru.sbt.mipt.oop.processor;
 
-import ru.sbt.mipt.oop.events.SensorEvent;
-import ru.sbt.mipt.oop.events.SensorEventType;
+import ru.sbt.mipt.oop.eventsgenerator.SensorEvent;
+import ru.sbt.mipt.oop.eventsgenerator.SensorEventType;
 import ru.sbt.mipt.oop.homecomponents.Light;
 import ru.sbt.mipt.oop.homecomponents.Room;
 import ru.sbt.mipt.oop.homecomponents.SmartHome;

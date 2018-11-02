@@ -1,7 +1,7 @@
 package ru.sbt.mipt.oop.processor;
 
-import ru.sbt.mipt.oop.events.SensorEvent;
-import ru.sbt.mipt.oop.events.SensorEventType;
+import ru.sbt.mipt.oop.eventsgenerator.SensorEvent;
+import ru.sbt.mipt.oop.eventsgenerator.SensorEventType;
 import ru.sbt.mipt.oop.homecomponents.SmartHome;
 
 public class SignalingEventProcessor implements HomeEventProcessor {
@@ -17,9 +17,9 @@ public class SignalingEventProcessor implements HomeEventProcessor {
             return;
         }
         if (event.getType() == SensorEventType.ALARM_ACTIVATE) {
-            smartHome.getSignaling().activate(event.getObjectId());
+            smartHome.activateSignaling(event.getObjectId());
         } else {
-            smartHome.getSignaling().deactivate(event.getObjectId());
+            smartHome.deactivateSignaling(event.getObjectId());
         }
     }
 
