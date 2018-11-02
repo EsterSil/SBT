@@ -23,7 +23,7 @@ public class HomeEventProcessorsTest {
 
     @Test
     public void DoorEventProcessorTest() {
-        HomeEventProcessor processor = new DoorEventProcessor();
+        HomeEventProcessor processor = new DoorEventProcessor(home);
 
 
     }

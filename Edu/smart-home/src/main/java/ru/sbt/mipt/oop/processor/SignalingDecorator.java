@@ -1,6 +1,7 @@
 package ru.sbt.mipt.oop.processor;
 
 import ru.sbt.mipt.oop.alarm.Activated;
+import ru.sbt.mipt.oop.alarm.Alarm;
 import ru.sbt.mipt.oop.eventsgenerator.SensorEvent;
 import ru.sbt.mipt.oop.homecomponents.SmartHome;
 
@@ -17,6 +18,9 @@ public class SignalingDecorator implements HomeEventProcessor {
     public void onEvent( SensorEvent event) {
         if (smartHome.getSignaling().getState() instanceof Activated) {
             smartHome.getSignaling().setToAlarm();
+        }
+        if (smartHome.getSignaling().getState() instanceof Alarm) {
+            return;
         }
         processor.onEvent(event);
     }

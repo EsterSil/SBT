@@ -13,6 +13,11 @@ import java.util.Collection;
 @Component
 public class SmartHome implements HomeComposite {
     private Collection<HomeComponent> components;
+
+    public Collection<Room> getRooms() {
+        return rooms;
+    }
+
     private Collection<Room> rooms;
 
     public Signaling getSignaling() {
@@ -51,10 +56,14 @@ public class SmartHome implements HomeComposite {
         return components;
     }
 
+    public void setRooms(Collection<Room> rooms) {
+        this.rooms = rooms;
+    }
+
     @Override
     public void executeAction(Action action) {
         action.execute(this);
-        if (components == null) {
+        if (components.isEmpty()) {
             components = new ArrayList<>();
             components.addAll(rooms);
         }

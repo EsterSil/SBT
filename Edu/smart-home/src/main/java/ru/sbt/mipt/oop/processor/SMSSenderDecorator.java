@@ -18,11 +18,11 @@ public class SMSSenderDecorator implements HomeEventProcessor {
     @Override
     public void onEvent(SensorEvent event) {
         if(smartHome.getSignaling().getState() instanceof Activated) {
-            System.out.println("Sending sms: \"Invasion! Biu-Wiu! Signaling was set to ALARM\" ");
+            System.out.println("Sending sms: \"Invasion! "+ event.toString() +"\"");
             return;
         }
         if (smartHome.getSignaling().getState() instanceof Alarm) {
-            System.out.println("Sending sms: \"Someone in the home!\"");
+            System.out.println("Sending sms: \"Someone in the home! "+ event.toString()+"\"");
         }
         processor.onEvent(event);
     }

@@ -27,6 +27,8 @@ public class CCSAdapter implements EventHandler {
 
     @Override
     public void handleEvent(CCSensorEvent event) {
-        eventProcessor.onEvent(new SensorEvent(eventTypeMap.get(event.getEventType()), event.getObjectId()));
+        SensorEvent se = new SensorEvent(eventTypeMap.get(event.getEventType()), event.getObjectId());
+       //System.out.println(" Adapter: " + se.toString());
+        eventProcessor.onEvent(se);
     }
 }

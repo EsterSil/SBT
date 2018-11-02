@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+import ru.sbt.mipt.oop.loarers.FileSmartHomeLoader;
 import ru.sbt.mipt.oop.loarers.SmartHomeLoader;
 import ru.sbt.mipt.oop.processor.*;
 import ru.sbt.mipt.oop.homecomponents.SmartHome;
@@ -21,6 +22,11 @@ public class HomeConfiguration {
     private static SensorEventsManager manager;
 
     public HomeConfiguration() {
+        try {
+            smartHome = new FileSmartHomeLoader().load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Autowired
@@ -32,6 +38,7 @@ public class HomeConfiguration {
         }
 
     }
+
 
     @Bean
     SensorEventsManager sensorEventsManager() {

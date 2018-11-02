@@ -9,6 +9,21 @@ public class Room implements HomeComposite {
     private Collection<HomeComponent> components;
     private String name;
 
+    public void setLights(Collection<Light> lights) {
+        this.lights = lights;
+    }
+
+    public void setDoors(Collection<Door> doors) {
+        this.doors = doors;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Room() {
+    }
+
     public Room(Collection<Light> lights, Collection<Door> doors, String name) {
         this.lights = lights;
         this.doors = doors;
@@ -41,7 +56,7 @@ public class Room implements HomeComposite {
     @Override
     public void executeAction(Action action) {
         action.execute(this);
-        if (components == null) {
+        if (components == null || components.isEmpty()) {
             components = new ArrayList<>();
             components.addAll(doors);
             components.addAll(lights);

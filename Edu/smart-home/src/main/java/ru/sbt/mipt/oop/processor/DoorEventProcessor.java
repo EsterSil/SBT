@@ -22,6 +22,7 @@ public class DoorEventProcessor implements HomeEventProcessor {
         if (!isDoorEvent(event)) {
             return;
         }
+        //System.out.println("got door");
         smartHome.executeAction(object -> {
             if (object instanceof Door) {
                 Door door = (Door) object;

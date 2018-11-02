@@ -35,7 +35,7 @@ public class HomeEventObserverTest {
         private int counter;
 
         @Override
-        public void onEvent(SmartHome smartHome, SensorEvent event) {
+        public void onEvent(SensorEvent event) {
             if (event.getType() == SensorEventType.DOOR_OPEN) {
                 counter++;
             }

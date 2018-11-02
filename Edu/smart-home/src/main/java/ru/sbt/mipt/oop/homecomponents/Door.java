@@ -6,15 +6,7 @@ public class Door implements HomeLeaf {
     private final String OPENED = " was opened.";
     private final String CLOSED = " was closed.";
 
-    public boolean isLock() {
-        return lock;
-    }
 
-    public void lock(boolean lock) {
-        this.lock = lock;
-    }
-
-    private boolean lock;
     public Door(boolean isOpen, String id) {
         this.isOpen = isOpen;
         this.id = id;
@@ -30,11 +22,6 @@ public class Door implements HomeLeaf {
 
 
     public void changeState(String componentID, boolean state) {
-        if (this.isLock()) {
-            System.out.println(" ALARM!  Someone trying to change state of door "+ id +
-                    "\n Sending sms \n");;
-            return;
-        }
         if (componentID.equals(this.id)) {
             this.setOpen(state);
             System.out.println( "Door " + this.id + (state ? OPENED : CLOSED));
