@@ -1,9 +1,9 @@
-package ru.sbt.mipt.oop.loarers;
+package ru.sbt.mipt.oop.loarers.fileloader;
 
 
-import ru.sbt.mipt.oop.homecomponents.*;
+import ru.sbt.mipt.oop.loarers.fileloader.Door;
+import ru.sbt.mipt.oop.loarers.fileloader.Light;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 public class Room {

@@ -7,9 +7,9 @@ import static ru.sbt.mipt.oop.eventsgenerator.SensorEventType.LIGHT_OFF;
 import static ru.sbt.mipt.oop.eventsgenerator.SensorEventType.LIGHT_ON;
 
 public class LightEventProcessor implements HomeEventProcessor {
-    private final SmartHome smartHome;
+    private final BasicSmartHome smartHome;
 
-    public LightEventProcessor(SmartHome smartHome) {
+    public LightEventProcessor(BasicSmartHome smartHome) {
         this.smartHome = smartHome;
     }
 
@@ -24,8 +24,8 @@ public class LightEventProcessor implements HomeEventProcessor {
             return;
         }
         smartHome.executeAction(object -> {
-            if (object instanceof  Light) {
-                Light light = (Light) object;
+            if (object instanceof LightComponent) {
+                LightComponent light = (LightComponent) object;
                 boolean state = event.getType() == LIGHT_ON;
                 light.changeState(event.getObjectId(), state);
             }

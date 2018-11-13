@@ -1,11 +1,8 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.alarm;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import ru.sbt.mipt.oop.alarm.Activated;
-import ru.sbt.mipt.oop.alarm.Alarm;
-import ru.sbt.mipt.oop.alarm.Disabled;
-import ru.sbt.mipt.oop.alarm.Signaling;
+
  class SignalingTest {
 
     private Signaling signaling= new Signaling();
@@ -13,14 +10,13 @@ import ru.sbt.mipt.oop.alarm.Signaling;
 
     @Test
      void activateFromDisabledTest() {
-        //Signaling signaling = new Signaling();
+
         signaling.activate( "145236");
         Assertions.assertTrue(signaling.getState() instanceof Activated);
     }
 
     @Test
      void activateFromActivatedTest() {
-        //Signaling signaling = new Signaling();
         signaling.activate( "145236");
         Assertions.assertTrue(signaling.getState() instanceof Activated);
         signaling.activate( "31");

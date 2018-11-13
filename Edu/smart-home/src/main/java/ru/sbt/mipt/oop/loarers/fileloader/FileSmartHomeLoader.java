@@ -1,13 +1,13 @@
-package ru.sbt.mipt.oop.loarers;
+package ru.sbt.mipt.oop.loarers.fileloader;
 
 import com.google.gson.Gson;
-import org.springframework.stereotype.Component;
+import ru.sbt.mipt.oop.loarers.SmartHomeLoader;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class FileSmartHomeLoader implements SmartHomeLoader{
+public class FileSmartHomeLoader implements SmartHomeLoader {
 
     public SmartHome load() throws IOException {
         Gson gson = new Gson();

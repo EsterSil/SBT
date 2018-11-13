@@ -2,14 +2,14 @@ package ru.sbt.mipt.oop.processor;
 
 import ru.sbt.mipt.oop.eventsgenerator.SensorEvent;
 import ru.sbt.mipt.oop.eventsgenerator.SensorEventType;
-import ru.sbt.mipt.oop.homecomponents.Light;
-import ru.sbt.mipt.oop.homecomponents.Room;
-import ru.sbt.mipt.oop.homecomponents.SmartHome;
+import ru.sbt.mipt.oop.homecomponents.LightComponent;
+import ru.sbt.mipt.oop.homecomponents.RoomComponent;
+import ru.sbt.mipt.oop.homecomponents.BasicSmartHome;
 
 public class HallEventProcessor implements HomeEventProcessor {
-    private final SmartHome smartHome;
+    private final BasicSmartHome smartHome;
 
-    public HallEventProcessor(SmartHome smartHome) {
+    public HallEventProcessor(BasicSmartHome smartHome) {
         this.smartHome = smartHome;
     }
 
@@ -19,12 +19,12 @@ public class HallEventProcessor implements HomeEventProcessor {
             return;
         }
         smartHome.executeAction(object -> {
-            if (object instanceof Room) {
-                Room room = (Room) object;
+            if (object instanceof RoomComponent) {
+                RoomComponent room = (RoomComponent) object;
                 if (room.getName().equals("hall")) {
                     smartHome.executeAction(object1 -> {
-                        if (object1 instanceof Light) {
-                            Light light = (Light) object1;
+                        if (object1 instanceof LightComponent) {
+                            LightComponent light = (LightComponent) object1;
                             light.changeState(light.getId(), false);
                         }
                     });

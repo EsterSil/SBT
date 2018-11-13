@@ -1,4 +1,4 @@
-package ru.sbt.mipt.oop.loarers;
+package ru.sbt.mipt.oop.loarers.fileloader;
 
 import ru.sbt.mipt.oop.homecomponents.Action;
 import ru.sbt.mipt.oop.homecomponents.HomeLeaf;

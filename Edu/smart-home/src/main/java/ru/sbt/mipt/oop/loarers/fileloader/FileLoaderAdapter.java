@@ -1,9 +1,11 @@
-package ru.sbt.mipt.oop.loarers;
+package ru.sbt.mipt.oop.loarers.fileloader;
 
 import org.springframework.stereotype.Component;
+import ru.sbt.mipt.oop.loarers.SmartHomeInt;
+import ru.sbt.mipt.oop.loarers.SmartHomeLoader;
 
 import java.io.IOException;
-@Component
+//@Component
 public class FileLoaderAdapter implements SmartHomeLoader {
     @Override
     public SmartHomeInt load() throws IOException {

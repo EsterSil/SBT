@@ -1,4 +1,4 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.managers;
 
 import com.coolcompany.smarthome.events.CCSensorEvent;
 import com.coolcompany.smarthome.events.EventHandler;
@@ -21,14 +21,12 @@ public class HandlerProcessorAdapter implements EventHandler {
         eventTypeMap.put("DoorIsUnlocked", SensorEventType.ALARM_DEACTIVATE);
     }
 
-    public HandlerProcessorAdapter(HomeEventProcessor eventProcessor) {
+    HandlerProcessorAdapter(HomeEventProcessor eventProcessor) {
         this.eventProcessor = eventProcessor;
     }
 
     @Override
     public void handleEvent(CCSensorEvent event) {
-        SensorEvent se = new SensorEvent(eventTypeMap.get(event.getEventType()), event.getObjectId());
-       //System.out.println(" Adapter: " + se.toString());
-        eventProcessor.onEvent(se);
+        eventProcessor.onEvent( new SensorEvent(eventTypeMap.get(event.getEventType()), event.getObjectId()));
     }
 }

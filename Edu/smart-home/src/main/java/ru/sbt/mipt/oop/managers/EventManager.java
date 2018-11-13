@@ -1,4 +1,4 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.managers;
 
 import ru.sbt.mipt.oop.processor.HomeEventProcessor;
 

@@ -4,20 +4,16 @@ package ru.sbt.mipt.oop.homecomponents;
 
 
 import org.springframework.stereotype.Component;
-import ru.sbt.mipt.oop.alarm.Alarm;
 import ru.sbt.mipt.oop.alarm.Signaling;
+import ru.sbt.mipt.oop.loarers.SmartHomeInt;
 
 import java.util.ArrayList;
 import java.util.Collection;
 @Component
-public class SmartHome implements HomeComposite {
+public class BasicSmartHome implements HomeComposite, SmartHomeInt {
     private Collection<HomeComponent> components;
     public Collection<HomeComponent> getComponents() {
         return components;
-    }
-    public void setRooms(Collection<Room> rooms) {
-        if (this.components == null )   this.components = new ArrayList<>();
-        this.components.addAll(rooms);
     }
 
     public Signaling getSignaling() {
@@ -31,16 +27,17 @@ public class SmartHome implements HomeComposite {
         this.signaling.deactivate(code);
     }
 
-    public SmartHome() {
+    public BasicSmartHome() {
         components = new ArrayList<>();
         signaling = new Signaling();
     }
 
-    public SmartHome(Collection<Room> rooms) {
+    public BasicSmartHome(Collection<? extends HomeComponent> components) {
         this.components = new ArrayList<>();
-        this.components.addAll(rooms);
+        this.components.addAll(components);
         this.signaling = new Signaling();
     }
+
 
 
     @Override
@@ -65,4 +62,8 @@ public class SmartHome implements HomeComposite {
         if (components != null )    components.forEach(c -> c.executeAction(action));
     }
 
+    @Override
+    public BasicSmartHome toBasicSmartHome() {
+        return this;
+    }
 }

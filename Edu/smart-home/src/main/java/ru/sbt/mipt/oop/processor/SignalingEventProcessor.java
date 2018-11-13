@@ -2,12 +2,12 @@ package ru.sbt.mipt.oop.processor;
 
 import ru.sbt.mipt.oop.eventsgenerator.SensorEvent;
 import ru.sbt.mipt.oop.eventsgenerator.SensorEventType;
-import ru.sbt.mipt.oop.homecomponents.SmartHome;
+import ru.sbt.mipt.oop.homecomponents.BasicSmartHome;
 
 public class SignalingEventProcessor implements HomeEventProcessor {
-    private final SmartHome smartHome;
+    private final BasicSmartHome smartHome;
 
-    public SignalingEventProcessor(SmartHome smartHome) {
+    public SignalingEventProcessor(BasicSmartHome smartHome) {
         this.smartHome = smartHome;
     }
 

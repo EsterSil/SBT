@@ -1,9 +1,10 @@
 package ru.sbt.mipt.oop.processor;
 
 import ru.sbt.mipt.oop.eventsgenerator.SensorEvent;
+import ru.sbt.mipt.oop.eventsgenerator.SensorEventType;
 import ru.sbt.mipt.oop.homecomponents.Action;
-import ru.sbt.mipt.oop.homecomponents.Door;
-import ru.sbt.mipt.oop.homecomponents.SmartHome;
+import ru.sbt.mipt.oop.homecomponents.DoorComponent;
+import ru.sbt.mipt.oop.homecomponents.BasicSmartHome;
 
 import static ru.sbt.mipt.oop.eventsgenerator.SensorEventType.DOOR_CLOSED;
 import static ru.sbt.mipt.oop.eventsgenerator.SensorEventType.DOOR_OPEN;
@@ -11,9 +12,9 @@ import static ru.sbt.mipt.oop.eventsgenerator.SensorEventType.DOOR_OPEN;
 
 public class DoorEventProcessor implements HomeEventProcessor {
 
-    private final SmartHome smartHome;
+    private final BasicSmartHome smartHome;
 
-    public DoorEventProcessor(SmartHome smartHome) {
+    public DoorEventProcessor(BasicSmartHome smartHome) {
         this.smartHome = smartHome;
     }
 
@@ -22,10 +23,10 @@ public class DoorEventProcessor implements HomeEventProcessor {
         if (!isDoorEvent(event)) {
             return;
         }
-        //System.out.println("got door");
+
         smartHome.executeAction(object -> {
-            if (object instanceof Door) {
-                Door door = (Door) object;
+            if (object instanceof DoorComponent) {
+                DoorComponent door = (DoorComponent) object;
                 boolean state = event.getType() == DOOR_OPEN;
                 door.changeState(event.getObjectId(), state);
             }
@@ -34,7 +35,11 @@ public class DoorEventProcessor implements HomeEventProcessor {
 
 
     private boolean isDoorEvent(SensorEvent event) {
-        return event.getType().equals(DOOR_CLOSED) || event.getType().equals(DOOR_OPEN);
+        if (event == null) {
+            return false;
+        }
+        SensorEventType t = event.getType();
+        return t.equals(DOOR_OPEN) || t.equals(DOOR_CLOSED) ;
     }
 
     private class DoorAction implements Action {

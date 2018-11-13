@@ -8,29 +8,29 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.sbt.mipt.oop.alarm.*;
 import ru.sbt.mipt.oop.eventsgenerator.SensorEvent;
-import ru.sbt.mipt.oop.homecomponents.SmartHome;
+import ru.sbt.mipt.oop.eventsgenerator.SensorEventType;
+import ru.sbt.mipt.oop.homecomponents.BasicSmartHome;
 
 @ExtendWith(MockitoExtension.class)
-class SendingSMSDecoratorTest {
-    //@Mock
-    private SensorEvent alarmEvent;
+class SMSSendingDecoratorTest {
+
+    private SensorEvent alarmEvent = new SensorEvent(SensorEventType.LIGHT_ON, "1");
 
     @Mock
-    private Signaling signaling;// = new Signaling();
+    private Signaling signaling;
     @Mock
-    private SmartHome homeMock;
+    private BasicSmartHome homeMock;
     @Mock
     private HomeEventProcessor processor;
     @InjectMocks
-    SignalingDecorator decorator;
+    SMSSenderDecorator smsSenderDecorator;
 
     @Test
     void onEventWithActivatedStateTest() {
         AlarmState state = new Activated(signaling, "0000");
         Mockito.when(signaling.getState()).thenReturn(state);
         Mockito.when(homeMock.getSignaling()).thenReturn(signaling);
-        decorator.onEvent(alarmEvent);
-        Mockito.verify(signaling).setToAlarm();
+        smsSenderDecorator.onEvent(alarmEvent);
         Mockito.verifyNoMoreInteractions(processor);
     }
 
@@ -39,7 +39,7 @@ class SendingSMSDecoratorTest {
         AlarmState state = new Alarm(signaling);
         Mockito.when(signaling.getState()).thenReturn(state);
         Mockito.when(homeMock.getSignaling()).thenReturn(signaling);
-        decorator.onEvent(alarmEvent);
+        smsSenderDecorator.onEvent(alarmEvent);
         Mockito.verifyNoMoreInteractions(processor);
     }
     @Test
@@ -47,7 +47,7 @@ class SendingSMSDecoratorTest {
         AlarmState state = new Disabled(signaling);
         Mockito.when(signaling.getState()).thenReturn(state);
         Mockito.when(homeMock.getSignaling()).thenReturn(signaling);
-        decorator.onEvent(alarmEvent);
+        smsSenderDecorator.onEvent(alarmEvent);
         Mockito.verify(processor).onEvent(alarmEvent);
     }
 

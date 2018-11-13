@@ -1,4 +1,4 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.managers;
 
 
 import org.junit.jupiter.api.Assertions;
@@ -9,13 +9,13 @@ import org.mockito.InjectMocks;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.sbt.mipt.oop.eventsgenerator.EventSource;
-import ru.sbt.mipt.oop.homecomponents.BasicSmartHome;
-import ru.sbt.mipt.oop.managers.HomeEventObserver;
 import ru.sbt.mipt.oop.processor.HomeEventProcessor;
 import ru.sbt.mipt.oop.eventsgenerator.SensorEvent;
 import ru.sbt.mipt.oop.eventsgenerator.SensorEventType;
+
+
 @ExtendWith(MockitoExtension.class)
-public class HomeEventObserverTest {
+class HomeEventObserverTest {
     @Mock
     private EventSource eventSource;
 
@@ -28,7 +28,7 @@ public class HomeEventObserverTest {
 
 
     @Test
-    public void observerTest() {
+    void observerLoopTest() {
         Mockito.when(eventSource.getNextSensorEvent()).thenReturn(event).thenReturn(null);
         observer.addEventProcessor(processor);
         observer.runEventLoop();

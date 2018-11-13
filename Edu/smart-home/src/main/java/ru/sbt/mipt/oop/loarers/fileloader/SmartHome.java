@@ -1,6 +1,10 @@
-package ru.sbt.mipt.oop.loarers;
+package ru.sbt.mipt.oop.loarers.fileloader;
 
 import ru.sbt.mipt.oop.homecomponents.*;
+import ru.sbt.mipt.oop.loarers.SmartHomeInt;
+import ru.sbt.mipt.oop.loarers.fileloader.Door;
+import ru.sbt.mipt.oop.loarers.fileloader.Light;
+import ru.sbt.mipt.oop.loarers.fileloader.Room;
 
 import java.util.ArrayList;
 import java.util.Collection;

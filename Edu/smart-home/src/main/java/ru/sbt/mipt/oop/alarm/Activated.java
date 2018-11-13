@@ -33,7 +33,7 @@ public class Activated implements AlarmState {
 
     @Override
     public void setToAlarm() {
-        System.out.println("Unacceptable behaviour!");
+        System.out.println("Invasion detected!");
         changeState(new Alarm(signaling));
     }
 

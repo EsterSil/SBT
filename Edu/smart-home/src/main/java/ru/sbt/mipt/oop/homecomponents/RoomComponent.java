@@ -4,18 +4,11 @@ package ru.sbt.mipt.oop.homecomponents;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class Room implements HomeComposite {
+public class RoomComponent implements HomeComposite {
 
-    private Collection<Light> lights;
-    public void setLights(Collection<Light> lights) {
-        if (this.components == null) this.components = new ArrayList<>();
-        this.components.addAll(lights);
-    }
-
-    private Collection<Door> doors;
-    public void setDoors(Collection<Door> doors) {
-        if (this.components == null) this.components = new ArrayList<>();
-        this.components.addAll(doors);
+    public RoomComponent(Collection<HomeComponent> components, String name) {
+        this.components = components;
+        this.name = name;
     }
 
     private Collection<HomeComponent> components;
@@ -28,16 +21,10 @@ public class Room implements HomeComposite {
         return name;
     }
 
-    public Room() {
+    public RoomComponent() {
         this.components = new ArrayList<>();
     }
 
-    public Room(Collection<Light> lights, Collection<Door> doors, String name) {
-        this.components = new ArrayList<>();
-        this.components.addAll(lights);
-        this.components.addAll(doors);
-        this.name = name;
-    }
 
     @Override
     public void addChild(HomeComponent component) {

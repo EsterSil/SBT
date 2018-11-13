@@ -1,10 +1,9 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.loaders;
 
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import ru.sbt.mipt.oop.homecomponents.BasicSmartHome;
-import ru.sbt.mipt.oop.loarers.FileSmartHomeLoader;
+import ru.sbt.mipt.oop.loarers.fileloader.FileSmartHomeLoader;
 import ru.sbt.mipt.oop.loarers.SmartHomeInt;
 import ru.sbt.mipt.oop.loarers.SmartHomeLoader;
 
@@ -22,9 +21,7 @@ public class FileSmartHomeLoaderTest {
             e.printStackTrace();
         }
         Assertions.assertNotNull(home);
-
-        BasicSmartHome smartHome = home.toBasicSmartHome();
-
-        Assertions.assertTrue(!smartHome.getComponents().isEmpty());
     }
+
+
 }
