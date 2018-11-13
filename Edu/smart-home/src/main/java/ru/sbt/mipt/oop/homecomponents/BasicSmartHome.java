@@ -1,6 +1,5 @@
 package ru.sbt.mipt.oop.homecomponents;
 
-//import com.sun.javafx.scene.control.skin.VirtualFlow;
 
 
 
@@ -13,18 +12,24 @@ import java.util.Collection;
 @Component
 public class SmartHome implements HomeComposite {
     private Collection<HomeComponent> components;
-
-    public Collection<Room> getRooms() {
-        return rooms;
+    public Collection<HomeComponent> getComponents() {
+        return components;
     }
-
-    private Collection<Room> rooms;
+    public void setRooms(Collection<Room> rooms) {
+        if (this.components == null )   this.components = new ArrayList<>();
+        this.components.addAll(rooms);
+    }
 
     public Signaling getSignaling() {
         return signaling;
     }
-
     private Signaling signaling;
+    public void activateSignaling(String code){
+        this.signaling.activate(code);
+    }
+    public void deactivateSignaling(String code){
+        this.signaling.deactivate(code);
+    }
 
     public SmartHome() {
         components = new ArrayList<>();
@@ -32,17 +37,15 @@ public class SmartHome implements HomeComposite {
     }
 
     public SmartHome(Collection<Room> rooms) {
-        this.rooms = rooms;
-        signaling = new Signaling();
+        this.components = new ArrayList<>();
+        this.components.addAll(rooms);
+        this.signaling = new Signaling();
     }
 
-
-    public Collection<HomeComponent> getComponents() {
-        return components;
-    }
 
     @Override
     public void addChild(HomeComponent component) {
+        if(components == null)  components = new ArrayList<>();
         components.add(component);
     }
 
@@ -56,28 +59,10 @@ public class SmartHome implements HomeComposite {
         return components;
     }
 
-    public void setRooms(Collection<Room> rooms) {
-        this.rooms = rooms;
-    }
-
     @Override
     public void executeAction(Action action) {
         action.execute(this);
-        if (components.isEmpty()) {
-            components = new ArrayList<>();
-            components.addAll(rooms);
-        }
-        components.forEach(c -> c.executeAction(action));
+        if (components != null )    components.forEach(c -> c.executeAction(action));
     }
 
-    public boolean isHomeLocked() {
-        return this.signaling.getState() instanceof Alarm;
-    }
-
-    public void activateSignaling(String code){
-        this.signaling.activate(code);
-    }
-    public void deactivateSignaling(String code){
-        this.signaling.deactivate(code);
-    }
 }

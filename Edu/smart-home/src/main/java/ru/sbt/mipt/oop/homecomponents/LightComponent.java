@@ -6,7 +6,6 @@ public class Light implements HomeLeaf {
     final String TURNED_ON = " was turned on.";
     final String TURNED_OFF = " was turned off.";
 
-
     public Light(String id, boolean isOn) {
         this.id = id;
         this.isOn = isOn;
@@ -26,8 +25,6 @@ public class Light implements HomeLeaf {
             System.out.println("Light " + this.id + (state ? TURNED_ON : TURNED_OFF));
         }
     }
-
-
 
     @Override
     public void executeAction(Action action) {

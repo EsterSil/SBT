@@ -1,44 +1,47 @@
 package ru.sbt.mipt.oop.homecomponents;
 
+
 import java.util.ArrayList;
 import java.util.Collection;
 
 public class Room implements HomeComposite {
+
     private Collection<Light> lights;
-    private Collection<Door> doors;
-    private Collection<HomeComponent> components;
-    private String name;
-
     public void setLights(Collection<Light> lights) {
-        this.lights = lights;
+        if (this.components == null) this.components = new ArrayList<>();
+        this.components.addAll(lights);
     }
 
+    private Collection<Door> doors;
     public void setDoors(Collection<Door> doors) {
-        this.doors = doors;
+        if (this.components == null) this.components = new ArrayList<>();
+        this.components.addAll(doors);
     }
 
+    private Collection<HomeComponent> components;
+
+    private String name;
     public void setName(String name) {
         this.name = name;
     }
-
-    public Room() {
-    }
-
-    public Room(Collection<Light> lights, Collection<Door> doors, String name) {
-        this.lights = lights;
-        this.doors = doors;
-        components = new ArrayList<>();
-        components.addAll(lights);
-        components.addAll(doors);
-        this.name = name;
-    }
-
     public String getName() {
         return name;
     }
 
+    public Room() {
+        this.components = new ArrayList<>();
+    }
+
+    public Room(Collection<Light> lights, Collection<Door> doors, String name) {
+        this.components = new ArrayList<>();
+        this.components.addAll(lights);
+        this.components.addAll(doors);
+        this.name = name;
+    }
+
     @Override
     public void addChild(HomeComponent component) {
+        if (components == null)     components = new ArrayList<>();
         components.add(component);
     }
 
@@ -56,11 +59,6 @@ public class Room implements HomeComposite {
     @Override
     public void executeAction(Action action) {
         action.execute(this);
-        if (components == null || components.isEmpty()) {
-            components = new ArrayList<>();
-            components.addAll(doors);
-            components.addAll(lights);
-        }
-        components.forEach((c) -> c.executeAction(action));
+        if (components != null)     components.forEach((c) -> c.executeAction(action));
     }
 }

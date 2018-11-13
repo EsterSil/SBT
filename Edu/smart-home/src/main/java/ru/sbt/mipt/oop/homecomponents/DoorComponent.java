@@ -20,7 +20,6 @@ public class Door implements HomeLeaf {
         isOpen = open;
     }
 
-
     public void changeState(String componentID, boolean state) {
         if (componentID.equals(this.id)) {
             this.setOpen(state);

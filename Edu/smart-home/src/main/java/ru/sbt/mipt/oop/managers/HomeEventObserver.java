@@ -2,7 +2,7 @@ package ru.sbt.mipt.oop;
 
 import ru.sbt.mipt.oop.eventsgenerator.*;
 import ru.sbt.mipt.oop.processor.HomeEventProcessor;
-import ru.sbt.mipt.oop.homecomponents.SmartHome;
+import ru.sbt.mipt.oop.homecomponents.BasicSmartHome;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,9 +10,9 @@ import java.util.Collection;
 public class HomeEventObserver implements EventManager{
     private static Collection<HomeEventProcessor> eventProcessors = null;
     private EventSource eventSource;
-    private SmartHome smartHome;
+    private BasicSmartHome smartHome;
 
-    public HomeEventObserver(SmartHome smartHome) {
+    public HomeEventObserver(BasicSmartHome smartHome) {
         this.smartHome = smartHome;
     }
 
