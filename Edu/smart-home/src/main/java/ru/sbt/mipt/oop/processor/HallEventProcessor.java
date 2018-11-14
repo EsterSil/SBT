@@ -1,8 +1,8 @@
 package ru.sbt.mipt.oop.processor;
 
+import ru.sbt.mipt.oop.command.AllLightsOffCommand;
 import ru.sbt.mipt.oop.eventsgenerator.SensorEvent;
 import ru.sbt.mipt.oop.eventsgenerator.SensorEventType;
-import ru.sbt.mipt.oop.homecomponents.LightComponent;
 import ru.sbt.mipt.oop.homecomponents.RoomComponent;
 import ru.sbt.mipt.oop.homecomponents.BasicSmartHome;
 
@@ -22,12 +22,7 @@ public class HallEventProcessor implements HomeEventProcessor {
             if (object instanceof RoomComponent) {
                 RoomComponent room = (RoomComponent) object;
                 if (room.getName().equals("hall")) {
-                    smartHome.executeAction(object1 -> {
-                        if (object1 instanceof LightComponent) {
-                            LightComponent light = (LightComponent) object1;
-                            light.changeState(light.getId(), false);
-                        }
-                    });
+                    new AllLightsOffCommand(smartHome).execute();
                     System.out.println(" Hall door was closed. All lights off");
                 }
             }
