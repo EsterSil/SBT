@@ -7,17 +7,22 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class ConCounter implements SharedCounter {
 
-    private AtomicLong counter;
+    private AtomicInteger counter;
 
     public ConCounter() {
-        counter = new AtomicLong(0);
+        counter = new AtomicInteger(0);
     }
 
-    public long get() {
+    public int get() {
         return counter.get();
     }
 
-    public long getAndIncrement() {
+    public int getAndIncrement() {
         return counter.getAndIncrement();
+    }
+
+    @Override
+    public void reset() {
+        counter = new AtomicInteger(0);
     }
 }

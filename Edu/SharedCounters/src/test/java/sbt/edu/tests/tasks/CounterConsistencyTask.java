@@ -1,15 +1,18 @@
+package sbt.edu.tests.tasks;
+
 import sbt.edu.sharedcounter.SharedCounter;
 
 
 /**
  * test task for shared counter
  * involved thread calls <code> SharedCounter's </code> method  <code> getAndIncrement()</code>
- * exactly <code> bound </code> times
+ * exactly <code> bound </code> times, and then check if counter's value matches expected value
+ * Successful test prove that counter doesn't skip any value
  */
-public class CounterUserTask implements Runnable{
+public class CounterConsistencyTask implements Runnable{
     private int bound;
     private SharedCounter counter;
-    public CounterUserTask(SharedCounter counter, int bound) {
+    public CounterConsistencyTask(SharedCounter counter, int bound) {
         this.counter = counter;
         this.bound = bound;
     }

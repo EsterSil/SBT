@@ -4,22 +4,24 @@ import sbt.edu.sharedcounter.SharedCounter;
 
 public class SyncCounter implements SharedCounter {
 
-    private volatile Long counter;
+    private volatile Integer counter;
     //private static final Integer lock;
 
     public SyncCounter() {
-        this.counter = 0L;
+        this.counter = 0;
         //lock = 0;
     }
 
 
-    public long get() {
+    public int get() {
         return counter;
     }
 
-    public long getAndIncrement() {
-        Long currentValue = 0L;
-        Long newValue = 0L;
+
+
+    public int getAndIncrement() {
+        Integer currentValue = 0;
+        Integer newValue = 0;
         while (true) {
             currentValue = counter;
             newValue = currentValue + 1;
@@ -30,6 +32,13 @@ public class SyncCounter implements SharedCounter {
                 }
             }
 
+        }
+    }
+
+    @Override
+    public void reset() {
+        synchronized (counter) {
+            counter = 0;
         }
     }
 }
