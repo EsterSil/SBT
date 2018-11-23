@@ -3,9 +3,6 @@ package sbt.edu.sharedcounter.combiningtree;
 import sbt.edu.sharedcounter.SharedCounter;
 
 import java.util.Stack;
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 public class CombiningTreeCounter implements SharedCounter {
     private Node[] leaf;
@@ -44,7 +41,7 @@ public class CombiningTreeCounter implements SharedCounter {
     }
 
     public int getAndIncrement() throws Exception {
-        {
+
             Stack<Node> stack = new Stack<Node>();
             int threadID = getThreadId();
             Node myLeaf = leaf[(threadID) / 2];
@@ -71,7 +68,7 @@ public class CombiningTreeCounter implements SharedCounter {
             }
             return prior;
 
-        }
+
     }
 
     @Override

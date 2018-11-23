@@ -1,7 +1,7 @@
 package sbt.edu.tests;
 
 import org.junit.jupiter.api.Test;
-import sbt.edu.sharedcounter.concurrentcounter.ConCounter;
+import sharedcounter.concurrentcounter.ConCounter;
 import sbt.edu.tests.CommonCounterTest;
 
 import java.util.concurrent.ExecutionException;

@@ -1,6 +1,6 @@
 package sbt.edu.tests.tasks;
 
-import sbt.edu.sharedcounter.SharedCounter;
+import sharedcounter.SharedCounter;
 
 import java.util.ArrayList;
 import java.util.List;

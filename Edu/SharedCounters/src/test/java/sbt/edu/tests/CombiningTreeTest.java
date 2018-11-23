@@ -1,7 +1,7 @@
 package sbt.edu.tests;
 
 import org.junit.jupiter.api.Test;
-import sbt.edu.sharedcounter.combiningtree.CombiningTreeCounter;
+import sharedcounter.combiningtree.CombiningTreeCounter;
 
 import java.util.concurrent.ExecutionException;
 

@@ -3,7 +3,6 @@ package sbt.edu.sharedcounter.concurrentcounter;
 import sbt.edu.sharedcounter.SharedCounter;
 
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
 
 public class ConCounter implements SharedCounter {
 

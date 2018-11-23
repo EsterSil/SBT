@@ -1,7 +1,7 @@
 package sbt.edu.tests;
 
 import org.junit.jupiter.api.Assertions;
-import sbt.edu.sharedcounter.SharedCounter;
+import sharedcounter.SharedCounter;
 import sbt.edu.tests.tasks.CounterConsistencyTask;
 import sbt.edu.tests.tasks.CounterUniqTask;
 
