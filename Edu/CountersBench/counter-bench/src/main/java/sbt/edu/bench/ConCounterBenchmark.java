@@ -108,7 +108,7 @@ public class ConCounterBenchmark {
         }
     }
     @Benchmark
-    @Group("tenThreadTest")
+    @Group("twelveThreadTest")
     @GroupThreads(value = 12)
     public void twelveThreads() throws Exception {
         int result = 0;
