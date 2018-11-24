@@ -44,11 +44,11 @@ public class ConCounterBenchmark {
 
     private final static SharedCounter counter = new ConCounter();
 
-    private final int bound = 1024;
+    private final int bound = 1_000_000;
 
 
     @Benchmark
-    @Group("oneThreadtest")
+    @Group("oneThreadTest")
     @GroupThreads(value = 1)
     public void oneThread() throws Exception {
         int result = 0;
@@ -79,6 +79,7 @@ public class ConCounterBenchmark {
             result = counter.getAndIncrement();
         }
     }
+    /*
     @Benchmark
     @Group("sixThreadTest")
     @GroupThreads(value = 6)
@@ -87,7 +88,7 @@ public class ConCounterBenchmark {
         for (int i = 0; i < bound/6; i++) {
             result = counter.getAndIncrement();
         }
-    }
+    }*/
 
     @Benchmark
     @Group("eightThreadTest")
@@ -98,6 +99,7 @@ public class ConCounterBenchmark {
             result = counter.getAndIncrement();
         }
     }
+    /*
     @Benchmark
     @Group("tenThreadTest")
     @GroupThreads(value = 10)
@@ -116,7 +118,7 @@ public class ConCounterBenchmark {
             result = counter.getAndIncrement();
         }
     }
-
+*/
     @Benchmark
     @Group("sixteenThreadTest")
     @GroupThreads(value = 16)

@@ -34,7 +34,7 @@ package sbt.edu.bench;
 import org.openjdk.jmh.annotations.*;
 import sbt.edu.sharedcounter.SharedCounter;
 import sbt.edu.sharedcounter.combiningtree.CombiningTreeCounter;
-import sbt.edu.sharedcounter.concurrentcounter.ConCounter;
+
 
 import java.util.concurrent.TimeUnit;
 
@@ -46,11 +46,11 @@ public class CombiningTreeCounterBenchmark {
 
     private final static SharedCounter counter = new CombiningTreeCounter(40);
 
-    private final int bound = 1024;
+    private final int bound = 1_000_000;
 
 
     @Benchmark
-    @Group("oneThreadtest")
+    @Group("oneThreadTest")
     @GroupThreads(value = 1)
     public void oneThread() throws Exception {
         int result = 0;
@@ -81,7 +81,7 @@ public class CombiningTreeCounterBenchmark {
             result = counter.getAndIncrement();
         }
     }
-    @Benchmark
+ /*  @Benchmark
     @Group("sixThreadTest")
     @GroupThreads(value = 6)
     public void sixThreads() throws Exception {
@@ -90,7 +90,7 @@ public class CombiningTreeCounterBenchmark {
             result = counter.getAndIncrement();
         }
     }
-
+*/
     @Benchmark
     @Group("eightThreadTest")
     @GroupThreads(value = 8)
@@ -100,6 +100,7 @@ public class CombiningTreeCounterBenchmark {
             result = counter.getAndIncrement();
         }
     }
+    /*
     @Benchmark
     @Group("tenThreadTest")
     @GroupThreads(value = 10)
@@ -118,7 +119,7 @@ public class CombiningTreeCounterBenchmark {
             result = counter.getAndIncrement();
         }
     }
-
+*/
     @Benchmark
     @Group("sixteenThreadTest")
     @GroupThreads(value = 16)

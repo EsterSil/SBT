@@ -45,7 +45,7 @@ public class SyncCounterBenchmark {
 
     private final static SharedCounter counter = new SyncCounter();
 
-    private final int bound = 1024;
+    private final int bound = 1_000_000;
 
 
     @Benchmark
@@ -80,6 +80,7 @@ public class SyncCounterBenchmark {
             result = counter.getAndIncrement();
         }
     }
+    /*
     @Benchmark
     @Group("sixThreadTest")
     @GroupThreads(value = 6)
@@ -89,7 +90,7 @@ public class SyncCounterBenchmark {
             result = counter.getAndIncrement();
         }
     }
-
+*/
     @Benchmark
     @Group("eightThreadTest")
     @GroupThreads(value = 8)
@@ -99,6 +100,7 @@ public class SyncCounterBenchmark {
             result = counter.getAndIncrement();
         }
     }
+    /*
     @Benchmark
     @Group("tenThreadTest")
     @GroupThreads(value = 10)
@@ -117,13 +119,23 @@ public class SyncCounterBenchmark {
             result = counter.getAndIncrement();
         }
     }
-
+*/
     @Benchmark
     @Group("sixteenThreadTest")
     @GroupThreads(value = 16)
     public void sixteenThreads() throws Exception {
         int result = 0;
         for (int i = 0; i < bound/16; i++) {
+            result = counter.getAndIncrement();
+        }
+    }
+
+    @Benchmark
+    @Group("thirtyTwoTest")
+    @GroupThreads(value = 16)
+    public void thirtyTwoThreads() throws Exception {
+        int result = 0;
+        for (int i = 0; i < bound/32; i++) {
             result = counter.getAndIncrement();
         }
     }
