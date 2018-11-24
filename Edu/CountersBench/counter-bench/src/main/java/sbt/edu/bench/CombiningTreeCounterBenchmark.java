@@ -32,6 +32,11 @@
 package sbt.edu.bench;
 
 import org.openjdk.jmh.annotations.*;
+import org.openjdk.jmh.profile.PausesProfiler;
+import org.openjdk.jmh.runner.Runner;
+import org.openjdk.jmh.runner.RunnerException;
+import org.openjdk.jmh.runner.options.Options;
+import org.openjdk.jmh.runner.options.OptionsBuilder;
 import sbt.edu.sharedcounter.SharedCounter;
 import sbt.edu.sharedcounter.combiningtree.CombiningTreeCounter;
 
@@ -66,7 +71,7 @@ public class CombiningTreeCounterBenchmark {
     @GroupThreads(value = 2)
     public void twoThreads() throws Exception {
         int result = 0;
-        for (int i = 0; i < bound/2; i++) {
+        for (int i = 0; i < bound; i++) {
             result = counter.getAndIncrement();
         }
     }
@@ -77,56 +82,38 @@ public class CombiningTreeCounterBenchmark {
     @GroupThreads(value = 4)
     public void fourThreads() throws Exception {
         int result = 0;
-        for (int i = 0; i < bound/4; i++) {
+        for (int i = 0; i < bound; i++) {
             result = counter.getAndIncrement();
         }
     }
- /*  @Benchmark
-    @Group("sixThreadTest")
-    @GroupThreads(value = 6)
-    public void sixThreads() throws Exception {
-        int result = 0;
-        for (int i = 0; i < bound/6; i++) {
-            result = counter.getAndIncrement();
-        }
-    }
-*/
     @Benchmark
     @Group("eightThreadTest")
     @GroupThreads(value = 8)
     public void eightThreads() throws Exception {
         int result = 0;
-        for (int i = 0; i < bound/8; i++) {
+        for (int i = 0; i < bound; i++) {
             result = counter.getAndIncrement();
         }
     }
-    /*
-    @Benchmark
-    @Group("tenThreadTest")
-    @GroupThreads(value = 10)
-    public void tenThreads() throws Exception {
-        int result = 0;
-        for (int i = 0; i < bound/10; i++) {
-            result = counter.getAndIncrement();
-        }
-    }
-    @Benchmark
-    @Group("twelveThreadTest")
-    @GroupThreads(value = 12)
-    public void twelveThreads() throws Exception {
-        int result = 0;
-        for (int i = 0; i < bound/12; i++) {
-            result = counter.getAndIncrement();
-        }
-    }
-*/
     @Benchmark
     @Group("sixteenThreadTest")
     @GroupThreads(value = 16)
     public void sixteenThreads() throws Exception {
         int result = 0;
-        for (int i = 0; i < bound/16; i++) {
+        for (int i = 0; i < bound; i++) {
             result = counter.getAndIncrement();
         }
     }
+
+
+    public static void main(String[] args) throws RunnerException {
+        Options opt = new OptionsBuilder().include(CombiningTreeCounterBenchmark.class.getSimpleName())
+                .warmupIterations(2)
+                .measurementIterations(5)
+                .forks(1).build();
+
+        new Runner(opt).run();
+
+    }
+
 }

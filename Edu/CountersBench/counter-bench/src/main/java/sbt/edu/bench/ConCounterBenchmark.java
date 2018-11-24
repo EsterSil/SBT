@@ -55,8 +55,6 @@ public class ConCounterBenchmark {
         for (int i = 0; i < bound; i++) {
             result = counter.getAndIncrement();
         }
-
-
     }
 
     @Benchmark
@@ -64,7 +62,7 @@ public class ConCounterBenchmark {
     @GroupThreads(value = 2)
     public void twoThreads() throws Exception {
         int result = 0;
-        for (int i = 0; i < bound/2; i++) {
+        for (int i = 0; i < bound; i++) {
             result = counter.getAndIncrement();
         }
     }
@@ -75,56 +73,27 @@ public class ConCounterBenchmark {
     @GroupThreads(value = 4)
     public void fourThreads() throws Exception {
         int result = 0;
-        for (int i = 0; i < bound/4; i++) {
+        for (int i = 0; i < bound; i++) {
             result = counter.getAndIncrement();
         }
     }
-    /*
-    @Benchmark
-    @Group("sixThreadTest")
-    @GroupThreads(value = 6)
-    public void sixThreads() throws Exception {
-        int result = 0;
-        for (int i = 0; i < bound/6; i++) {
-            result = counter.getAndIncrement();
-        }
-    }*/
 
     @Benchmark
     @Group("eightThreadTest")
     @GroupThreads(value = 8)
     public void eightThreads() throws Exception {
         int result = 0;
-        for (int i = 0; i < bound/8; i++) {
+        for (int i = 0; i < bound; i++) {
             result = counter.getAndIncrement();
         }
     }
-    /*
-    @Benchmark
-    @Group("tenThreadTest")
-    @GroupThreads(value = 10)
-    public void tenThreads() throws Exception {
-        int result = 0;
-        for (int i = 0; i < bound/10; i++) {
-            result = counter.getAndIncrement();
-        }
-    }
-    @Benchmark
-    @Group("twelveThreadTest")
-    @GroupThreads(value = 12)
-    public void twelveThreads() throws Exception {
-        int result = 0;
-        for (int i = 0; i < bound/12; i++) {
-            result = counter.getAndIncrement();
-        }
-    }
-*/
+
     @Benchmark
     @Group("sixteenThreadTest")
     @GroupThreads(value = 16)
     public void sixteenThreads() throws Exception {
         int result = 0;
-        for (int i = 0; i < bound/16; i++) {
+        for (int i = 0; i < bound; i++) {
             result = counter.getAndIncrement();
         }
     }

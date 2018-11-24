@@ -1,13 +1,14 @@
 package sbt.edu.sharedcounter.combiningtree;
 
  class Node {
-        private boolean locked = false;
-        private Status status;
-        private int firstValue, secondValue;
-        private int result;
-        private  Node parent;
+        private volatile boolean locked = false;
+        private volatile Status status;
+        private volatile int firstValue, secondValue;
+        private volatile int result;
+        private final Node parent;
         Node() {
             status = Status.ROOT;
+            parent = null;
         }
 
          Node(Node parent) {
