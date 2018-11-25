@@ -48,8 +48,8 @@ public class SyncCounterBenchmark {
 
 
     private final static SharedCounter counter = new SyncCounter();
-
-    private final int bound = 1_000_000;
+    @Param({"10000", "100000", "1000000"})
+    private  int bound;
 
 
     @Benchmark

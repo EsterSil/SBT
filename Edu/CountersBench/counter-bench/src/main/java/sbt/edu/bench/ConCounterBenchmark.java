@@ -42,13 +42,13 @@ import sbt.edu.sharedcounter.concurrentcounter.ConCounter;
 import java.util.concurrent.TimeUnit;
 
 @State(Scope.Group)
-@OutputTimeUnit(TimeUnit.MICROSECONDS)
+@OutputTimeUnit(TimeUnit.MILLISECONDS)
 @BenchmarkMode(Mode.Throughput)
 public class ConCounterBenchmark {
 
     private final static SharedCounter counter = new ConCounter();
-
-    private final int bound = 1_000_000;
+    @Param({"10000", "100000", "1000000"})
+    private int bound;
 
 
     @Benchmark
@@ -59,6 +59,8 @@ public class ConCounterBenchmark {
         for (int i = 0; i < bound; i++) {
             result = counter.getAndIncrement();
         }
+
+
     }
 
     @Benchmark
@@ -82,6 +84,7 @@ public class ConCounterBenchmark {
         }
     }
 
+
     @Benchmark
     @Group("eightThreadTest")
     @GroupThreads(value = 8)
@@ -103,12 +106,17 @@ public class ConCounterBenchmark {
     }
 
     public static void main(String[] args) throws RunnerException {
-        Options opt = new OptionsBuilder().include(ConCounterBenchmark.class.getSimpleName())
+        Options opt = new OptionsBuilder()
+                .include(ConCounterBenchmark.class.getSimpleName())
+                  .include(CombiningTreeCounterBenchmark.class.getSimpleName())
+                .include(SyncCounterBenchmark.class.getSimpleName())
                 .warmupIterations(2)
                 .measurementIterations(5)
-                .forks(1).build();
+                //.threadGroups(30)
+                //.output("threadAmountBenchmarks.txt")
+                .forks(1)
+                .build();
 
         new Runner(opt).run();
-
     }
 }
