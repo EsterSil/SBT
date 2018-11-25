@@ -1,6 +1,6 @@
 package sbt.edu.tests.tasks;
 
-import sbt.edu.sharedcounter.*;
+import sbt.edu.sharedcounter.SharedCounter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ public class CounterUniqTask implements Callable<List<Integer>> {
     @Override
     public List<Integer> call() throws Exception {
         System.out.println(Thread.currentThread().getName() + " started");
-        for (int i = 0; i< bound; i++) {
+        for (int i = 0; i < bound; i++) {
             try {
                 values.add(counter.getAndIncrement());
             } catch (Exception e) {

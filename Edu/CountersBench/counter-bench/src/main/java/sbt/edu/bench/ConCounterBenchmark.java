@@ -32,6 +32,10 @@
 package sbt.edu.bench;
 
 import org.openjdk.jmh.annotations.*;
+import org.openjdk.jmh.runner.Runner;
+import org.openjdk.jmh.runner.RunnerException;
+import org.openjdk.jmh.runner.options.Options;
+import org.openjdk.jmh.runner.options.OptionsBuilder;
 import sbt.edu.sharedcounter.SharedCounter;
 import sbt.edu.sharedcounter.concurrentcounter.ConCounter;
 
@@ -39,7 +43,7 @@ import java.util.concurrent.TimeUnit;
 
 @State(Scope.Group)
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
-@BenchmarkMode(Mode.AverageTime)
+@BenchmarkMode(Mode.Throughput)
 public class ConCounterBenchmark {
 
     private final static SharedCounter counter = new ConCounter();
@@ -96,5 +100,15 @@ public class ConCounterBenchmark {
         for (int i = 0; i < bound; i++) {
             result = counter.getAndIncrement();
         }
+    }
+
+    public static void main(String[] args) throws RunnerException {
+        Options opt = new OptionsBuilder().include(ConCounterBenchmark.class.getSimpleName())
+                .warmupIterations(2)
+                .measurementIterations(5)
+                .forks(1).build();
+
+        new Runner(opt).run();
+
     }
 }

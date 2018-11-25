@@ -1,14 +1,14 @@
 package sbt.edu.tests;
 
 import org.junit.jupiter.api.Test;
-import sharedcounter.combiningtree.CombiningTreeCounter;
+import sbt.edu.sharedcounter.combiningtree.CombiningTreeCounter;
 
 import java.util.concurrent.ExecutionException;
 
 public class CombiningTreeTest {
 
     private CommonCounterTest test = new CommonCounterTest(1000);
-    CombiningTreeCounter counter = new CombiningTreeCounter(10);
+    private CombiningTreeCounter counter = new CombiningTreeCounter(10);
 
     @Test
     void singleThreadTest() {
@@ -39,8 +39,9 @@ public class CombiningTreeTest {
         }
         counter.reset();
     }
+
     @Test
-    void uniqPerOneTest () {
+    void uniqPerOneTest() {
         try {
             test.uniquenessPerOneTest(counter);
         } catch (InterruptedException e) {
@@ -50,7 +51,7 @@ public class CombiningTreeTest {
     }
 
     @Test
-    void uniqPerManyTest () {
+    void uniqPerManyTest() {
         try {
             test.uniquenessPerManyTest(counter);
         } catch (InterruptedException e) {
@@ -60,7 +61,7 @@ public class CombiningTreeTest {
     }
 
     @Test
-    void uniqThroughManyTest () {
+    void uniqThroughManyTest() {
         try {
             test.uniquenessThroughManyTest(counter);
         } catch (InterruptedException | ExecutionException e) {

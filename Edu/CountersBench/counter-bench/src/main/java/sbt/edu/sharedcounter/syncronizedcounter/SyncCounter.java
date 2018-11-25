@@ -5,11 +5,9 @@ import sbt.edu.sharedcounter.SharedCounter;
 public class SyncCounter implements SharedCounter {
 
     private volatile Integer counter;
-    //private static final Integer lock;
 
     public SyncCounter() {
         this.counter = 0;
-        //lock = 0;
     }
 
 
@@ -18,14 +16,13 @@ public class SyncCounter implements SharedCounter {
     }
 
 
-
     public int getAndIncrement() {
         Integer currentValue = 0;
         Integer newValue = 0;
         while (true) {
             currentValue = counter;
             newValue = currentValue + 1;
-            synchronized (counter) {
+            synchronized (this) {
                 if (counter.equals(currentValue)) {
                     counter = newValue;
                     return currentValue;
@@ -37,7 +34,7 @@ public class SyncCounter implements SharedCounter {
 
     @Override
     public void reset() {
-        synchronized (counter) {
+        synchronized (this) {
             counter = 0;
         }
     }

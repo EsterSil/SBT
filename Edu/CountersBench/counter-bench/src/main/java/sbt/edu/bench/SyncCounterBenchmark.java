@@ -32,6 +32,10 @@
 package sbt.edu.bench;
 
 import org.openjdk.jmh.annotations.*;
+import org.openjdk.jmh.runner.Runner;
+import org.openjdk.jmh.runner.RunnerException;
+import org.openjdk.jmh.runner.options.Options;
+import org.openjdk.jmh.runner.options.OptionsBuilder;
 import sbt.edu.sharedcounter.SharedCounter;
 import sbt.edu.sharedcounter.syncronizedcounter.SyncCounter;
 
@@ -39,7 +43,7 @@ import java.util.concurrent.TimeUnit;
 
 @State(Scope.Group)
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
-@BenchmarkMode(Mode.AverageTime)
+@BenchmarkMode(Mode.Throughput)
 public class SyncCounterBenchmark {
 
 
@@ -80,6 +84,7 @@ public class SyncCounterBenchmark {
             result = counter.getAndIncrement();
         }
     }
+
     @Benchmark
     @Group("eightThreadTest")
     @GroupThreads(value = 8)
@@ -89,6 +94,7 @@ public class SyncCounterBenchmark {
             result = counter.getAndIncrement();
         }
     }
+
     @Benchmark
     @Group("sixteenThreadTest")
     @GroupThreads(value = 16)
@@ -99,5 +105,13 @@ public class SyncCounterBenchmark {
         }
     }
 
+    public static void main(String[] args) throws RunnerException {
+        Options opt = new OptionsBuilder().include(SyncCounterBenchmark.class.getSimpleName())
+                .warmupIterations(2)
+                .measurementIterations(5)
+                .forks(1).build();
 
+        new Runner(opt).run();
+
+    }
 }

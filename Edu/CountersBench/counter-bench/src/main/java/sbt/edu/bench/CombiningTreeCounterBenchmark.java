@@ -32,7 +32,6 @@
 package sbt.edu.bench;
 
 import org.openjdk.jmh.annotations.*;
-import org.openjdk.jmh.profile.PausesProfiler;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
@@ -40,16 +39,15 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 import sbt.edu.sharedcounter.SharedCounter;
 import sbt.edu.sharedcounter.combiningtree.CombiningTreeCounter;
 
-
 import java.util.concurrent.TimeUnit;
 
 @State(Scope.Group)
-@OutputTimeUnit(TimeUnit.MICROSECONDS)
-@BenchmarkMode(Mode.AverageTime)
+@OutputTimeUnit(TimeUnit.SECONDS)
+@BenchmarkMode(Mode.Throughput)
 public class CombiningTreeCounterBenchmark {
 
 
-    private final static SharedCounter counter = new CombiningTreeCounter(40);
+    private final static SharedCounter counter = new CombiningTreeCounter(20);
 
     private final int bound = 1_000_000;
 
@@ -86,6 +84,7 @@ public class CombiningTreeCounterBenchmark {
             result = counter.getAndIncrement();
         }
     }
+
     @Benchmark
     @Group("eightThreadTest")
     @GroupThreads(value = 8)
@@ -95,6 +94,7 @@ public class CombiningTreeCounterBenchmark {
             result = counter.getAndIncrement();
         }
     }
+
     @Benchmark
     @Group("sixteenThreadTest")
     @GroupThreads(value = 16)

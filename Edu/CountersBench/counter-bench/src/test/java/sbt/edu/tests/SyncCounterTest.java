@@ -1,8 +1,7 @@
 package sbt.edu.tests;
 
 import org.junit.jupiter.api.Test;
-import sharedcounter.syncronizedcounter.SyncCounter;
-import sbt.edu.tests.CommonCounterTest;
+import sbt.edu.sharedcounter.syncronizedcounter.SyncCounter;
 
 import java.util.concurrent.ExecutionException;
 
@@ -43,7 +42,7 @@ public class SyncCounterTest {
     }
 
     @Test
-    void uniqPerOneTest () {
+    void uniqPerOneTest() {
         try {
             test.uniquenessPerOneTest(counter);
         } catch (InterruptedException e) {
@@ -51,8 +50,9 @@ public class SyncCounterTest {
         }
         counter.reset();
     }
+
     @Test
-    void uniqPerManyTest () {
+    void uniqPerManyTest() {
         try {
             test.uniquenessPerManyTest(counter);
         } catch (InterruptedException e) {
@@ -61,7 +61,7 @@ public class SyncCounterTest {
     }
 
     @Test
-    void uniqThroughManyTest () {
+    void uniqThroughManyTest() {
         try {
             test.uniquenessThroughManyTest(counter);
         } catch (InterruptedException | ExecutionException e) {

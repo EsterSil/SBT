@@ -11,14 +11,13 @@ public class CombiningTreeCounter implements SharedCounter {
     private Node root;
 
     private int getThreadId() {
-       // System.out.println("Thread Name " + Thread.currentThread().getName());
-            int threadID = 0;
+
+        int threadID = 0;
         String[] tokens = Thread.currentThread().getName().split("-");
 
         if (!tokens[tokens.length - 1].equals("main")) {
             threadID = Integer.parseInt(tokens[tokens.length - 1].trim());
         }
-       // System.out.println("Thread's name " + tokens[tokens.length - 1] + " " + threadID);
         return threadID;
     }
 
@@ -42,33 +41,31 @@ public class CombiningTreeCounter implements SharedCounter {
 
     public int getAndIncrement() throws Exception {
 
-            Stack<Node> stack = new Stack<Node>();
-            int threadID = getThreadId();
-            Node myLeaf = leaf[(threadID) / 2];
-            Node node = myLeaf;
-            // precombining phase 
-            while (node.precombine()) {
-                node = node.getParent();
-            }
-            Node stop = node;
-            // combining phase 
-            node = myLeaf;
-            int combined = 1;
-            while (node != stop) {
-                combined = node.combine(combined);
-                stack.push(node);
-                node = node.getParent();
-            }
-            // operation phase 
-            int prior = stop.op(combined);
-            // distribution phase 
-            while (!stack.empty()) {
-                node = stack.pop();
-                node.distribute(prior);
-            }
-            return prior;
-
-
+        Stack<Node> stack = new Stack<Node>();
+        int threadID = getThreadId();
+        Node myLeaf = leaf[(threadID) / 2];
+        Node node = myLeaf;
+        // precombining phase
+        while (node.precombine()) {
+            node = node.getParent();
+        }
+        Node stop = node;
+        // combining phase
+        node = myLeaf;
+        int combined = 1;
+        while (node != stop) {
+            combined = node.combine(combined);
+            stack.push(node);
+            node = node.getParent();
+        }
+        // operation phase
+        int prior = stop.op(combined);
+        // distribution phase
+        while (!stack.empty()) {
+            node = stack.pop();
+            node.distribute(prior);
+        }
+        return prior;
     }
 
     @Override

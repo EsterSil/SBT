@@ -1,15 +1,14 @@
 package sbt.edu.tests;
 
 import org.junit.jupiter.api.Test;
-import sharedcounter.concurrentcounter.ConCounter;
-import sbt.edu.tests.CommonCounterTest;
+import sbt.edu.sharedcounter.concurrentcounter.ConCounter;
 
 import java.util.concurrent.ExecutionException;
 
-public class ConCounterTest {
+class ConCounterTest {
 
     private ConCounter conCounter = new ConCounter();
-private CommonCounterTest test = new CommonCounterTest(10000);
+    private CommonCounterTest test = new CommonCounterTest(10000);
 
     @Test
     void singleThreadTest() {
@@ -40,8 +39,9 @@ private CommonCounterTest test = new CommonCounterTest(10000);
         }
         conCounter.reset();
     }
+
     @Test
-    void uniqPerOneTest () {
+    void uniqPerOneTest() {
         try {
             test.uniquenessPerOneTest(conCounter);
         } catch (InterruptedException e) {
@@ -51,7 +51,7 @@ private CommonCounterTest test = new CommonCounterTest(10000);
     }
 
     @Test
-    void uniqPerManyTest () {
+    void uniqPerManyTest() {
         try {
             test.uniquenessPerManyTest(conCounter);
         } catch (InterruptedException e) {
@@ -61,7 +61,7 @@ private CommonCounterTest test = new CommonCounterTest(10000);
     }
 
     @Test
-    void uniqThroughManyTest () {
+    void uniqThroughManyTest() {
         try {
             test.uniquenessThroughManyTest(conCounter);
         } catch (InterruptedException | ExecutionException e) {
