@@ -42,13 +42,12 @@ import sbt.edu.sharedcounter.concurrentcounter.ConCounter;
 import java.util.concurrent.TimeUnit;
 
 @State(Scope.Group)
-@OutputTimeUnit(TimeUnit.MILLISECONDS)
+@OutputTimeUnit(TimeUnit.MICROSECONDS)
 @BenchmarkMode(Mode.Throughput)
+@OperationsPerInvocation(1000000)
 public class ConCounterBenchmark {
 
     private final static SharedCounter counter = new ConCounter();
-    @Param({"10000", "100000", "1000000"})
-    private int bound;
 
 
     @Benchmark
@@ -56,7 +55,7 @@ public class ConCounterBenchmark {
     @GroupThreads(value = 1)
     public void oneThread() throws Exception {
         int result = 0;
-        for (int i = 0; i < bound; i++) {
+        for (int i = 0; i < 1000000; i++) {
             result = counter.getAndIncrement();
         }
 
@@ -68,7 +67,7 @@ public class ConCounterBenchmark {
     @GroupThreads(value = 2)
     public void twoThreads() throws Exception {
         int result = 0;
-        for (int i = 0; i < bound; i++) {
+        for (int i = 0; i < 1000000; i++) {
             result = counter.getAndIncrement();
         }
     }
@@ -79,7 +78,7 @@ public class ConCounterBenchmark {
     @GroupThreads(value = 4)
     public void fourThreads() throws Exception {
         int result = 0;
-        for (int i = 0; i < bound; i++) {
+        for (int i = 0; i < 1000000; i++) {
             result = counter.getAndIncrement();
         }
     }
@@ -90,7 +89,7 @@ public class ConCounterBenchmark {
     @GroupThreads(value = 8)
     public void eightThreads() throws Exception {
         int result = 0;
-        for (int i = 0; i < bound; i++) {
+        for (int i = 0; i < 1000000; i++) {
             result = counter.getAndIncrement();
         }
     }
@@ -100,7 +99,7 @@ public class ConCounterBenchmark {
     @GroupThreads(value = 16)
     public void sixteenThreads() throws Exception {
         int result = 0;
-        for (int i = 0; i < bound; i++) {
+        for (int i = 0; i < 1000000; i++) {
             result = counter.getAndIncrement();
         }
     }
@@ -108,12 +107,8 @@ public class ConCounterBenchmark {
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
                 .include(ConCounterBenchmark.class.getSimpleName())
-                  .include(CombiningTreeCounterBenchmark.class.getSimpleName())
-                .include(SyncCounterBenchmark.class.getSimpleName())
                 .warmupIterations(2)
                 .measurementIterations(5)
-                //.threadGroups(30)
-                //.output("threadAmountBenchmarks.txt")
                 .forks(1)
                 .build();
 

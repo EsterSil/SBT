@@ -44,20 +44,19 @@ import java.util.concurrent.TimeUnit;
 @State(Scope.Group)
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
 @BenchmarkMode(Mode.Throughput)
+@OperationsPerInvocation(1000000)
 public class SyncCounterBenchmark {
 
 
     private final static SharedCounter counter = new SyncCounter();
-    @Param({"10000", "100000", "1000000"})
-    private  int bound;
 
 
     @Benchmark
-    @Group("oneThreadtest")
+    @Group("oneThreadTest")
     @GroupThreads(value = 1)
     public void oneThread() throws Exception {
         int result = 0;
-        for (int i = 0; i < bound; i++) {
+        for (int i = 0; i < 1000000; i++) {
             result = counter.getAndIncrement();
         }
 
@@ -69,7 +68,7 @@ public class SyncCounterBenchmark {
     @GroupThreads(value = 2)
     public void twoThreads() throws Exception {
         int result = 0;
-        for (int i = 0; i < bound; i++) {
+        for (int i = 0; i < 1000000; i++) {
             result = counter.getAndIncrement();
         }
     }
@@ -80,7 +79,7 @@ public class SyncCounterBenchmark {
     @GroupThreads(value = 4)
     public void fourThreads() throws Exception {
         int result = 0;
-        for (int i = 0; i < bound; i++) {
+        for (int i = 0; i < 1000000; i++) {
             result = counter.getAndIncrement();
         }
     }
@@ -90,7 +89,7 @@ public class SyncCounterBenchmark {
     @GroupThreads(value = 8)
     public void eightThreads() throws Exception {
         int result = 0;
-        for (int i = 0; i < bound; i++) {
+        for (int i = 0; i < 1000000; i++) {
             result = counter.getAndIncrement();
         }
     }
@@ -100,7 +99,7 @@ public class SyncCounterBenchmark {
     @GroupThreads(value = 16)
     public void sixteenThreads() throws Exception {
         int result = 0;
-        for (int i = 0; i < bound; i++) {
+        for (int i = 0; i < 1000000; i++) {
             result = counter.getAndIncrement();
         }
     }

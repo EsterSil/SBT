@@ -12,14 +12,13 @@ import sbt.edu.sharedcounter.concurrentcounter.ConCounter;
 import java.util.concurrent.TimeUnit;
 
 @State(Scope.Group)
-@OutputTimeUnit(TimeUnit.SECONDS)
+@OutputTimeUnit(TimeUnit.MICROSECONDS)
 @BenchmarkMode(Mode.Throughput)
+@OperationsPerInvocation(1000000)
 public class CombiningTreeCounterBenchmark {
 
 
     private final static SharedCounter counter = new CombiningTreeCounter(20);
-    @Param({"10000", "100000", "1000000"})
-    private int bound;
 
 
     @Benchmark
@@ -27,7 +26,7 @@ public class CombiningTreeCounterBenchmark {
     @GroupThreads(value = 1)
     public void oneThread() throws Exception {
         int result = 0;
-        for (int i = 0; i < bound; i++) {
+        for (int i = 0; i < 1000000; i++) {
             result = counter.getAndIncrement();
         }
 
@@ -39,7 +38,7 @@ public class CombiningTreeCounterBenchmark {
     @GroupThreads(value = 2)
     public void twoThreads() throws Exception {
         int result = 0;
-        for (int i = 0; i < bound; i++) {
+        for (int i = 0; i < 1000000; i++) {
             result = counter.getAndIncrement();
         }
     }
@@ -50,7 +49,7 @@ public class CombiningTreeCounterBenchmark {
     @GroupThreads(value = 4)
     public void fourThreads() throws Exception {
         int result = 0;
-        for (int i = 0; i < bound; i++) {
+        for (int i = 0; i < 1000000; i++) {
             result = counter.getAndIncrement();
         }
     }
@@ -60,7 +59,7 @@ public class CombiningTreeCounterBenchmark {
     @GroupThreads(value = 8)
     public void eightThreads() throws Exception {
         int result = 0;
-        for (int i = 0; i < bound; i++) {
+        for (int i = 0; i < 1000000; i++) {
             result = counter.getAndIncrement();
         }
     }
@@ -70,7 +69,7 @@ public class CombiningTreeCounterBenchmark {
     @GroupThreads(value = 16)
     public void sixteenThreads() throws Exception {
         int result = 0;
-        for (int i = 0; i < bound; i++) {
+        for (int i = 0; i < 1000000; i++) {
             result = counter.getAndIncrement();
         }
     }
@@ -78,8 +77,6 @@ public class CombiningTreeCounterBenchmark {
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder().include(CombiningTreeCounterBenchmark.class.getSimpleName())
-                .include((ConCounterBenchmark.class.getSimpleName()))
-                .include((SyncCounterBenchmark.class.getSimpleName()))
                 .warmupIterations(2)
                 .measurementIterations(5)
                 .forks(1).build();
