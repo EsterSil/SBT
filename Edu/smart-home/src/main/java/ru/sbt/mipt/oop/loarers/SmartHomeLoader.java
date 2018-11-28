@@ -1,8 +1,10 @@
 package ru.sbt.mipt.oop.loarers;
 
+import ru.sbt.mipt.oop.homecomponents.BasicSmartHome;
+
 import java.io.IOException;
 
 public interface SmartHomeLoader {
 
-    SmartHomeInt load() throws IOException;
+    BasicSmartHome load() throws IOException;
 }

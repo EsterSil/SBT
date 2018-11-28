@@ -1,28 +1,43 @@
 package ru.sbt.mipt.oop.homecomponents;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class RoomComponent implements HomeComposite {
+public class Room implements HomeComposite {
+    private Collection<HomeComponent> components;
 
-    public RoomComponent(Collection<HomeComponent> components, String name) {
+    private String name;
+    public Room() {
+        this.components = new ArrayList<>();
+    }
+
+    public Room(Collection<HomeComponent> components, String name) {
         this.components = components;
         this.name = name;
     }
 
-    private Collection<HomeComponent> components;
-
-    private String name;
+    @JsonCreator
+    public Room(@JsonProperty("lights") Collection<Light> lights,
+                @JsonProperty("doors") Collection<Door> doors, @JsonProperty("name") String name){
+        this.name = name;
+        components = new ArrayList<>();
+        components.addAll(lights);
+        components.addAll(doors);
+    }
     public void setName(String name) {
         this.name = name;
     }
+
     public String getName() {
         return name;
     }
 
-    public RoomComponent() {
-        this.components = new ArrayList<>();
+    public Collection<HomeComponent> getComponents() {
+        return components;
     }
 
 

@@ -12,11 +12,14 @@ class SmartHomeCompositeTest {
 
     private BasicSmartHome smartHome = new BasicSmartHome();
     @Mock
-    private RoomComponent room;
+    private Room room;
     @Mock
-    private DoorComponent door;
+    private Door door;
     @Mock
-    private LightComponent light;
+    private Light light;
+
+
+
 
 
     @Test
@@ -76,3 +79,6 @@ class Counter {
     }
 
 }
+
+
+

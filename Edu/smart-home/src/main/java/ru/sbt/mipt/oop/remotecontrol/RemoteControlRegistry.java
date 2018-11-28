@@ -2,7 +2,7 @@ package ru.sbt.mipt.oop.remotecontrol;
 
 public class RemoteControlRegistry {
 
-    public void registerRemoteControl (RemoteControl remoteControl, String rcID) {
+    public void registerRemoteControl (RemoteControl remoteControl) {
 
     }
 }

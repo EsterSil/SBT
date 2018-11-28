@@ -8,61 +8,49 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.sbt.mipt.oop.eventsgenerator.SensorEvent;
 import ru.sbt.mipt.oop.eventsgenerator.SensorEventType;
-import ru.sbt.mipt.oop.homecomponents.*;
+import ru.sbt.mipt.oop.homecomponents.Action;
+import ru.sbt.mipt.oop.homecomponents.BasicSmartHome;
+import ru.sbt.mipt.oop.homecomponents.Light;
+import ru.sbt.mipt.oop.homecomponents.Room;
 
 @ExtendWith(MockitoExtension.class)
 class HallEventActionTest {
 
     @Mock
-    private RoomComponent roomMock;
-
-    @Mock
-    private LightComponent lightMock;
+    private Room roomMock;
 
     @Mock
     private SensorEvent eventMock;
+
     @Mock
-    private BasicSmartHome smartHome;
+    private BasicSmartHome smartHome ; //= new BasicSmartHome();
+
     @InjectMocks
-    private  HallEventProcessor processor; // =  new HallEventProcessor(smartHome);
+    private HallEventProcessor processor;
 
+    @Test
+    void executeActionTest() {
 
+        Mockito.when(eventMock.getType()).thenReturn(SensorEventType.DOOR_CLOSED);
+
+        processor.onEvent(eventMock);
+
+        Mockito.verify(smartHome).executeAction(Mockito.any());
+    }
 
     @Test
     void executeActionOnRoomTest() {
-
         Mockito.when(eventMock.getType()).thenReturn(SensorEventType.DOOR_CLOSED);
+        Mockito.when(roomMock.getName()).thenReturn("hall");
         Mockito.doCallRealMethod().when(smartHome).executeAction(Mockito.any(Action.class));
-        Mockito.doCallRealMethod().when(smartHome).addChild(Mockito.any(RoomComponent.class));
+        Mockito.doCallRealMethod().when(roomMock).executeAction(Mockito.any(Action.class));
+        Mockito.doCallRealMethod().when(smartHome).addChild(Mockito.any(Room.class));
         smartHome.addChild(roomMock);
         processor.onEvent(eventMock);
-        //Mockito.verify(smartHome, Mockito.times(2)).executeAction(Mockito.any());
         Mockito.verify(roomMock).executeAction(Mockito.any());
-    }
-
-    @Test
-    void executeActionOnHomeFromRoomTest() {
-        Mockito.when(eventMock.getType()).thenReturn(SensorEventType.DOOR_CLOSED);
-        Mockito.doCallRealMethod().when(smartHome).executeAction(Mockito.any(Action.class));
-        Mockito.doCallRealMethod().when(smartHome).addChild(Mockito.any(RoomComponent.class));
-        RoomComponent room = new RoomComponent();
-        room.setName("hall");
-        smartHome.addChild(room);
-        processor.onEvent(eventMock);
-        Mockito.verify(smartHome, Mockito.atLeast(2)).executeAction(Mockito.any());
-    }
-
-    @Test
-    void executeActionOnLightTest() {
-        Mockito.when(eventMock.getType()).thenReturn(SensorEventType.DOOR_CLOSED);
-        BasicSmartHome home = new BasicSmartHome();
-        RoomComponent room = new RoomComponent();
-        room.setName("hall");
-        room.addChild(lightMock);
-        home.addChild(room);
-        processor = new HallEventProcessor(home);
-        processor.onEvent(eventMock);
-        Mockito.verify(lightMock, Mockito.atLeast(2)).executeAction(Mockito.any());
+        Mockito.verify(smartHome).allLightsOff();
 
     }
+
+
 }

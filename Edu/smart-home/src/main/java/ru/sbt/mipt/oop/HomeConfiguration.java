@@ -1,18 +1,15 @@
 package ru.sbt.mipt.oop;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
-import ru.sbt.mipt.oop.eventsgenerator.RandomEventGenerator;
+import ru.sbt.mipt.oop.loarers.fileloader.FileSmartHomeLoader;
 import ru.sbt.mipt.oop.managers.EventManager;
-import ru.sbt.mipt.oop.loarers.fileloader.FileLoaderAdapter;
-import ru.sbt.mipt.oop.loarers.SmartHomeLoader;
 import ru.sbt.mipt.oop.managers.EventManagerAdapter;
-import ru.sbt.mipt.oop.managers.HomeEventObserver;
 import ru.sbt.mipt.oop.processor.*;
 import ru.sbt.mipt.oop.homecomponents.BasicSmartHome;
+import ru.sbt.mipt.oop.remotecontrol.RemoteControlRegistry;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,14 +24,25 @@ public class HomeConfiguration {
     public HomeConfiguration() {
     }
 
+    @Bean
+    public RemoteControlRegistry remoteControlRegistry(){
+        return new RemoteControlRegistry();
+    }
 
+    @Bean
+    public BasicSmartHome basicSmartHome() {
+        try {
+            this.smartHome = new FileSmartHomeLoader().load();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        return smartHome;
+    }
     @Bean
     public EventManager eventManager() {
         manager = new EventManagerAdapter();
-        try {
-            smartHome = new FileLoaderAdapter().load().toBasicSmartHome();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (smartHome == null) {
+            smartHome = basicSmartHome();
         }
         configureManager(smartHome);
         return manager;

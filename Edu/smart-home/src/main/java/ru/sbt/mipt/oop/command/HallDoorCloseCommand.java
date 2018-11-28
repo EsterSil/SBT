@@ -1,32 +1,56 @@
 package ru.sbt.mipt.oop.command;
 
-import ru.sbt.mipt.oop.homecomponents.Action;
 import ru.sbt.mipt.oop.homecomponents.BasicSmartHome;
-import ru.sbt.mipt.oop.homecomponents.DoorComponent;
-import ru.sbt.mipt.oop.homecomponents.RoomComponent;
+import ru.sbt.mipt.oop.homecomponents.Door;
+import ru.sbt.mipt.oop.homecomponents.Room;
 
-public class HallDoorCloseCommand implements Command {
+public class HallDoorCloseCommand implements  UndoableCommand {
 
     private final BasicSmartHome smartHome;
+    private final String owner;
 
-    public HallDoorCloseCommand(BasicSmartHome smartHome) {
+    public HallDoorCloseCommand(BasicSmartHome smartHome, String owner) {
         this.smartHome = smartHome;
+        this.owner = owner;
     }
 
     @Override
     public void execute() {
+        CommandHistory.save(this);
         smartHome.executeAction(object -> {
-            if (object instanceof RoomComponent) {
-                RoomComponent room = (RoomComponent)object;
+            if (object instanceof Room) {
+                Room room = (Room)object;
                 if (room.getName().equals("hall")) {
                     room.executeAction(object1 -> {
-                        if (object1 instanceof DoorComponent) {
-                            DoorComponent door = (DoorComponent) object1;
+                        if (object1 instanceof Door) {
+                            Door door = (Door) object1;
                             door.changeState(door.getId(), false);
                         }
                     });
                 }
             }
         });
+    }
+
+    @Override
+    public void undo() {
+        smartHome.executeAction(object -> {
+            if (object instanceof Room) {
+                Room room = (Room)object;
+                if (room.getName().equals("hall")) {
+                    room.executeAction(object1 -> {
+                        if (object1 instanceof Door) {
+                            Door door = (Door) object1;
+                            door.changeState(door.getId(), true);
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    @Override
+    public String getOwner() {
+        return owner;
     }
 }

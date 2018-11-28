@@ -1,12 +1,15 @@
 package ru.sbt.mipt.oop.homecomponents;
 
-public class LightComponent implements HomeLeaf {
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public class Light implements HomeLeaf {
     private boolean isOn;
     private final String id;
     final String TURNED_ON = " was turned on.";
     final String TURNED_OFF = " was turned off.";
-
-    public LightComponent(String id, boolean isOn) {
+    @JsonCreator
+    public Light(@JsonProperty("isOn") boolean isOn, @JsonProperty("id") String id) {
         this.id = id;
         this.isOn = isOn;
     }
@@ -22,7 +25,7 @@ public class LightComponent implements HomeLeaf {
     public void changeState(String componentID, boolean state) {
         if (componentID.equals(this.id)) {
             this.setOn(state);
-            System.out.println("LightComponent " + this.id + (state ? TURNED_ON : TURNED_OFF));
+            System.out.println("Light " + this.id + (state ? TURNED_ON : TURNED_OFF));
         }
     }
 

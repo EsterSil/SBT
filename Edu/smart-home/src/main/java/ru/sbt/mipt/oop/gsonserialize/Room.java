@@ -1,12 +1,12 @@
-package ru.sbt.mipt.oop.loarers.fileloader;
+package ru.sbt.mipt.oop.gsonserialize;
 
 
-import ru.sbt.mipt.oop.loarers.fileloader.Door;
-import ru.sbt.mipt.oop.loarers.fileloader.Light;
+import ru.sbt.mipt.oop.homecomponents.Action;
+import ru.sbt.mipt.oop.homecomponents.HomeComponent;
 
 import java.util.Collection;
 
-public class Room {
+ class Room  implements HomeComponent {
 
     private Collection<Light> lights;
     public void setLights(Collection<Light> lights) {
@@ -43,5 +43,10 @@ public class Room {
 
     public Collection<Door> getDoors() {
         return doors;
+    }
+
+    @Override
+    public void executeAction(Action action) {
+
     }
 }

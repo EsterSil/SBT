@@ -9,14 +9,14 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import ru.sbt.mipt.oop.eventsgenerator.SensorEvent;
 import ru.sbt.mipt.oop.eventsgenerator.SensorEventType;
 import ru.sbt.mipt.oop.homecomponents.Action;
-import ru.sbt.mipt.oop.homecomponents.LightComponent;
+import ru.sbt.mipt.oop.homecomponents.Light;
 import ru.sbt.mipt.oop.homecomponents.BasicSmartHome;
 
 @ExtendWith(MockitoExtension.class)
 class LightEventActionTest {
 
     @Mock
-    private LightComponent lightMock;
+    private Light lightMock;
 
     @Mock
     private SensorEvent eventMock;

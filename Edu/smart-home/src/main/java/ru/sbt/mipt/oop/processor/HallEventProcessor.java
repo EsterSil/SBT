@@ -1,9 +1,8 @@
 package ru.sbt.mipt.oop.processor;
 
-import ru.sbt.mipt.oop.command.AllLightsOffCommand;
 import ru.sbt.mipt.oop.eventsgenerator.SensorEvent;
 import ru.sbt.mipt.oop.eventsgenerator.SensorEventType;
-import ru.sbt.mipt.oop.homecomponents.RoomComponent;
+import ru.sbt.mipt.oop.homecomponents.Room;
 import ru.sbt.mipt.oop.homecomponents.BasicSmartHome;
 
 public class HallEventProcessor implements HomeEventProcessor {
@@ -19,10 +18,10 @@ public class HallEventProcessor implements HomeEventProcessor {
             return;
         }
         smartHome.executeAction(object -> {
-            if (object instanceof RoomComponent) {
-                RoomComponent room = (RoomComponent) object;
+            if (object instanceof Room) {
+                Room room = (Room) object;
                 if (room.getName().equals("hall")) {
-                    new AllLightsOffCommand(smartHome).execute();
+                    smartHome.allLightsOff();
                     System.out.println(" Hall door was closed. All lights off");
                 }
             }

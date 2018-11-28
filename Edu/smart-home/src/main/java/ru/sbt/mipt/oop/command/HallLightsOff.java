@@ -1,31 +1,55 @@
 package ru.sbt.mipt.oop.command;
 
 import ru.sbt.mipt.oop.homecomponents.BasicSmartHome;
-import ru.sbt.mipt.oop.homecomponents.LightComponent;
-import ru.sbt.mipt.oop.homecomponents.RoomComponent;
-import ru.sbt.mipt.oop.loarers.fileloader.Light;
+import ru.sbt.mipt.oop.homecomponents.Light;
+import ru.sbt.mipt.oop.homecomponents.Room;
 
-public class HallLightsOff implements Command {
+public class HallLightsOff implements  UndoableCommand {
     private final BasicSmartHome smartHome;
+    private final String  owner;
 
-    public HallLightsOff(BasicSmartHome smartHome) {
+    public HallLightsOff(BasicSmartHome smartHome, String owner) {
         this.smartHome = smartHome;
+        this.owner = owner;
     }
 
     @Override
     public void execute() {
+        CommandHistory.save(this);
         smartHome.executeAction( object ->  {
-            if (object instanceof RoomComponent) {
-                RoomComponent room = (RoomComponent) object;
+            if (object instanceof Room) {
+                Room room = (Room) object;
                 if (room.getName().equals("hall")) {
                     room.executeAction(object1 -> {
-                        if (object1 instanceof LightComponent) {
-                            LightComponent light = (LightComponent) object1;
+                        if (object1 instanceof Light) {
+                            Light light = (Light) object1;
                             light.changeState(light.getId(), true);
                         }
                     });
                 }
             }
         });
+    }
+
+    @Override
+    public void undo() {
+        smartHome.executeAction( object ->  {
+            if (object instanceof Room) {
+                Room room = (Room) object;
+                if (room.getName().equals("hall")) {
+                    room.executeAction(object1 -> {
+                        if (object1 instanceof Light) {
+                            Light light = (Light) object1;
+                            light.changeState(light.getId(), false);
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    @Override
+    public String getOwner() {
+        return owner;
     }
 }

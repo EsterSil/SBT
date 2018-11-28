@@ -24,8 +24,8 @@ public class LightEventProcessor implements HomeEventProcessor {
             return;
         }
         smartHome.executeAction(object -> {
-            if (object instanceof LightComponent) {
-                LightComponent light = (LightComponent) object;
+            if (object instanceof Light) {
+                Light light = (Light) object;
                 boolean state = event.getType() == LIGHT_ON;
                 light.changeState(event.getObjectId(), state);
             }

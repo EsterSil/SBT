@@ -1,22 +1,29 @@
 package ru.sbt.mipt.oop.command;
 
 import ru.sbt.mipt.oop.homecomponents.BasicSmartHome;
-import ru.sbt.mipt.oop.homecomponents.LightComponent;
 
-public class AllLightsOnCommand implements Command {
+public class AllLightsOnCommand implements  UndoableCommand {
     private final BasicSmartHome smartHome;
+    private final String owner;
 
-    public AllLightsOnCommand(BasicSmartHome smartHome) {
+    public AllLightsOnCommand(BasicSmartHome smartHome, String owner) {
         this.smartHome = smartHome;
+        this.owner = owner;
     }
 
     @Override
     public void execute() {
-        smartHome.executeAction(object1 -> {
-            if (object1 instanceof LightComponent) {
-                LightComponent light = (LightComponent) object1;
-                light.changeState(light.getId(), true);
-            }
-        });
+        CommandHistory.save(this);
+        smartHome.allLightsOn();
     }
+
+    @Override
+    public void undo() {
+        smartHome.allLightsOff();
+    }
+    @Override
+    public String getOwner() {
+        return owner;
+    }
+
 }

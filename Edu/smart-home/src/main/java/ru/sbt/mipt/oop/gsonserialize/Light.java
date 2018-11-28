@@ -1,9 +1,9 @@
-package ru.sbt.mipt.oop.loarers.fileloader;
+package ru.sbt.mipt.oop.gsonserialize;
 
 import ru.sbt.mipt.oop.homecomponents.Action;
 import ru.sbt.mipt.oop.homecomponents.HomeLeaf;
 
-public class Light {
+ class Light {
     private boolean isOn;
     private final String id;
 

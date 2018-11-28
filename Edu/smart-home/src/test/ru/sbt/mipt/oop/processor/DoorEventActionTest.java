@@ -8,14 +8,14 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import ru.sbt.mipt.oop.eventsgenerator.SensorEvent;
 import ru.sbt.mipt.oop.eventsgenerator.SensorEventType;
 import ru.sbt.mipt.oop.homecomponents.Action;
-import ru.sbt.mipt.oop.homecomponents.DoorComponent;
+import ru.sbt.mipt.oop.homecomponents.Door;
 import ru.sbt.mipt.oop.homecomponents.BasicSmartHome;
 
 @ExtendWith(MockitoExtension.class)
 class DoorEventActionTest {
 
     @Mock
-    private DoorComponent doorMock;
+    private Door doorMock;
 
     @Mock
     private SensorEvent eventMock;

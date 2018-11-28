@@ -1,11 +1,7 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.gsonserialize;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import ru.sbt.mipt.oop.loarers.fileloader.Door;
-import ru.sbt.mipt.oop.loarers.fileloader.Light;
-import ru.sbt.mipt.oop.loarers.fileloader.Room;
-import ru.sbt.mipt.oop.loarers.fileloader.SmartHome;
 
 import java.io.BufferedWriter;
 import java.io.IOException;

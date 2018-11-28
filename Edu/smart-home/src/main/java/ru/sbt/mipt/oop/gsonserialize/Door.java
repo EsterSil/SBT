@@ -1,9 +1,9 @@
-package ru.sbt.mipt.oop.loarers.fileloader;
+package ru.sbt.mipt.oop.gsonserialize;
 
 import ru.sbt.mipt.oop.homecomponents.Action;
 import ru.sbt.mipt.oop.homecomponents.HomeLeaf;
 
-public class Door {
+class Door {
     private final String id;
     private boolean isOpen;
 
