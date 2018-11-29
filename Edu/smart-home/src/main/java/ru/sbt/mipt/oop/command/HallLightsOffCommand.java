@@ -4,11 +4,11 @@ import ru.sbt.mipt.oop.homecomponents.BasicSmartHome;
 import ru.sbt.mipt.oop.homecomponents.Light;
 import ru.sbt.mipt.oop.homecomponents.Room;
 
-public class HallLightsOff implements  UndoableCommand {
+public class HallLightsOffCommand implements  UndoableCommand {
     private final BasicSmartHome smartHome;
     private final String  owner;
 
-    public HallLightsOff(BasicSmartHome smartHome, String owner) {
+    public HallLightsOffCommand(BasicSmartHome smartHome, String owner) {
         this.smartHome = smartHome;
         this.owner = owner;
     }

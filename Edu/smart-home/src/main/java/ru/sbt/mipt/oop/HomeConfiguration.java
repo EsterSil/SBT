@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+import ru.sbt.mipt.oop.command.CommandFactory;
 import ru.sbt.mipt.oop.loarers.fileloader.FileSmartHomeLoader;
 import ru.sbt.mipt.oop.managers.EventManager;
 import ru.sbt.mipt.oop.managers.EventManagerAdapter;
@@ -38,11 +39,17 @@ public class HomeConfiguration {
         }
         return smartHome;
     }
+
+    @Bean
+    public CommandFactory commandFactory() {
+        if (smartHome == null) basicSmartHome();
+        return new CommandFactory(smartHome);
+    }
     @Bean
     public EventManager eventManager() {
         manager = new EventManagerAdapter();
         if (smartHome == null) {
-            smartHome = basicSmartHome();
+            basicSmartHome();
         }
         configureManager(smartHome);
         return manager;
