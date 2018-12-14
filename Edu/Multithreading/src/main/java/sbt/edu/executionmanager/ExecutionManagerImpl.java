@@ -32,12 +32,14 @@ public class ExecutionManagerImpl implements ExecutionManager {
                 if (context.isInterrupted()){
                     for (Future f : futures) {
                         f.cancel(true);
+                        context.incrementInterruptedCounter();
                     }
                 }
             });
             watcher.start();
             for (Runnable r : tasks) {
                 futures.add(executor.submit(r));
+
             }
             executor.shutdown();
             try {

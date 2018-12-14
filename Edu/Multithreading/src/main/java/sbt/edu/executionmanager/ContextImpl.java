@@ -23,7 +23,7 @@ public class ContextImpl implements Context {
 
     @Override
     public int getInterruptedTaskCount() {
-        return failedTaskCount.get();
+        return interruptedTaskCount.get();
     }
 
     @Override
@@ -42,6 +42,9 @@ public class ContextImpl implements Context {
     }
     void incrementFailedCounter() {
         failedTaskCount.getAndIncrement();
+    }
+    void incrementInterruptedCounter() {
+        interruptedTaskCount.getAndIncrement();
     }
 
     boolean isInterrupted() {

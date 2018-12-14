@@ -30,6 +30,7 @@ public class MainExec {
         });
 
         System.out.println(context.getCompletedTaskCount()+ " " + context.getFailedTaskCount());
+        context.interrupt();
         while (!context.isFinished()){
             try {
                 Thread.sleep(10);
@@ -37,7 +38,7 @@ public class MainExec {
                 e.printStackTrace();
             }
         }
-        System.out.println(context.getCompletedTaskCount()+ " " + context.getFailedTaskCount());
+        System.out.println(context.getCompletedTaskCount()+ " " + context.getFailedTaskCount()+ " "+ context.getInterruptedTaskCount());
 
     }
 }
