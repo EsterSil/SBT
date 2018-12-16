@@ -39,6 +39,5 @@ public class MainExec {
             }
         }
         System.out.println(context.getCompletedTaskCount()+ " " + context.getFailedTaskCount()+ " "+ context.getInterruptedTaskCount());
-
     }
 }

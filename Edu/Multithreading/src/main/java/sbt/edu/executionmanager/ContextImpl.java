@@ -43,8 +43,8 @@ public class ContextImpl implements Context {
     void incrementFailedCounter() {
         failedTaskCount.getAndIncrement();
     }
-    void incrementInterruptedCounter() {
-        interruptedTaskCount.getAndIncrement();
+    void setInterruptedCounter(int value) {
+        interruptedTaskCount.compareAndSet(0,value);
     }
 
     boolean isInterrupted() {
