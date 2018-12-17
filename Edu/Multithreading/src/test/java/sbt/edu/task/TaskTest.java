@@ -1,9 +1,13 @@
 package sbt.edu.task;
 
+import org.junit.jupiter.api.Test;
+
 import java.util.concurrent.Callable;
 
-public class Main {
-    public static void main(String[] args) {
+public class TaskTest {
+
+    @Test
+    void taskTest() {
 
         Callable<Integer> callable = () -> {
             System.out.println(Thread.currentThread().getName() + " counting");
@@ -12,7 +16,7 @@ public class Main {
             return 100;
         };
 
-        Task<Integer> task = new TaskImpl<>(callable);
+        TaskImpl<Integer> task = new TaskImpl<>(callable);
         for (int i = 0; i < 5; i++) {
 
             Thread t = new Thread(() -> {
