@@ -3,6 +3,9 @@ package sbt.edu.task;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.Callable;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class TaskTest {
 
@@ -17,25 +20,25 @@ public class TaskTest {
         };
 
         TaskImpl<Integer> task = new TaskImpl<>(callable);
-        for (int i = 0; i < 5; i++) {
-
-            Thread t = new Thread(() -> {
+        ExecutorService service = Executors.newFixedThreadPool(5);
+        CountDownLatch counter = new CountDownLatch(5);
+        for (int i = 0; i <5 ; i++) {
+            service.execute(() -> {
                 try {
-                    System.out.println(Thread.currentThread().getName() + " " + task.get());
-
+                    System.out.println(task.get());
+                    counter.countDown();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             });
-            try {
-                Thread.sleep(i * 1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            t.start();
         }
-
+        try {
+            counter.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //service.shutdown();
 
     }
+
 }

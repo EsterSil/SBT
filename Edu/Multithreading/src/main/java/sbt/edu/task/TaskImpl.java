@@ -1,61 +1,54 @@
 package sbt.edu.task;
 
-import sbt.edu.task.Task;
 
 import java.util.concurrent.Callable;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class TaskImpl<T> implements Task {
 
     private final Callable<T> callable;
-    private volatile T result;
-    private  boolean inProgress;
-    private TaskPerformingException thrown;
+    private final Semaphore semaphore;
+    private T executionResult;
+    private TaskPerformingException executionException;
+    private volatile AtomicBoolean executed;
 
     public TaskImpl(Callable<T> callable) {
         this.callable = callable;
+        this.semaphore = new Semaphore(1);
+        this.executed = new AtomicBoolean();
     }
 
     @Override
-    public T get() throws Exception {
-        T call = result;
-        Exception exception = thrown;
-        if (call == null) {
-            if (exception == null) {
-                await();
-                try {
-                    call = doCall();
-                } catch (Exception e) {
-                    thrown = new TaskPerformingException(e);
-                    throw thrown;
-                }
-            } else {
-                throw thrown;
-            }
+    public Object get() throws Exception {
+        if (executed.get()) {
+            return getExecutionResult();
         }
 
-        return call;
-    }
+        semaphore.acquire();
 
-    private synchronized T doCall() throws Exception {
-        T call = null;
-        if (result == null) {
-            inProgress = true;
-            call = result = callable.call();
-            inProgress = false;
+        if (executed.get()) {
+            semaphore.release();
+            return getExecutionResult();
         }
-        //call = result;
-        return call;
-    }
 
-    private synchronized void await() {
-        while (inProgress) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        try {
+            executionResult = callable.call();
+            return executionResult;
+        } catch (RuntimeException e) {
+            executionException = new TaskPerformingException(e);
+            throw executionException;
+        } finally {
+            executed.getAndSet(true);
+            semaphore.release();
         }
     }
 
+    private T getExecutionResult() {
+        if (executionException != null) {
+            throw executionException;
+        }
+        return executionResult;
+    }
 
 }
